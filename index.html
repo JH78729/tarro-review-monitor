@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="食客通社媒评论监控 — 小红书・微信・Facebook・Google・Yelp">
+<meta name="theme-color" content="#0d0f14">
+<title>食客通 · Review Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f14;
+  --surface: #13161e;
+  --surface2: #1a1e28;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8eaf0;
+  --text2: #7a8099;
+  --text3: #4a5068;
+  --green: #2ecc8a;
+  --green-dim: rgba(46,204,138,0.12);
+  --red: #e05454;
+  --red-dim: rgba(224,84,84,0.12);
+  --blue: #5b8ef0;
+  --blue-dim: rgba(91,142,240,0.12);
+  --amber: #f0a030;
+  --amber-dim: rgba(240,160,48,0.12);
+  --purple: #9b72f0;
+  --r: 8px;
+  --r2: 12px;
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 400; line-height: 1.6; min-height: 100vh; }
+
+/* ── layout ── */
+.shell { max-width: 1080px; margin: 0 auto; padding: 0 24px 80px; }
+header { display: flex; align-items: center; justify-content: space-between; padding: 28px 0 32px; border-bottom: 1px solid var(--border); margin-bottom: 32px; flex-wrap: wrap; gap: 12px; }
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+.logo-text { font-size: 15px; font-weight: 500; letter-spacing: .01em; }
+.logo-sub { font-family: var(--mono); font-size: 11px; color: var(--text2); margin-top: 1px; }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.last-run { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+.add-btn { display: flex; align-items: center; gap: 6px; padding: 7px 14px; background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--r); font-family: var(--sans); font-size: 13px; color: var(--text); cursor: pointer; transition: border-color .15s, background .15s; }
+.add-btn:hover { background: var(--surface); border-color: rgba(255,255,255,.22); }
+
+/* ── stat cards ── */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
+@media(max-width:640px){ .stats { grid-template-columns: repeat(2,1fr); } }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r2); padding: 18px 20px; }
+.stat-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+.stat-value { font-family: var(--mono); font-size: 28px; font-weight: 500; line-height: 1; }
+.stat-sub { font-size: 11px; color: var(--text2); margin-top: 5px; }
+.v-green { color: var(--green); }
+.v-red { color: var(--red); }
+.v-blue { color: var(--blue); }
+.v-amber { color: var(--amber); }
+
+/* ── charts row ── */
+.charts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+@media(max-width:640px){ .charts { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r2); padding: 20px; }
+.card-title { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px; }
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.bar-label { font-size: 12px; color: var(--text2); min-width: 72px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; transition: width .6s cubic-bezier(.4,0,.2,1); }
+.bar-count { font-family: var(--mono); font-size: 11px; color: var(--text3); min-width: 20px; text-align: right; }
+.mini-legend { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text2); }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+.donut-wrap { display: flex; align-items: center; gap: 20px; }
+svg.donut { flex-shrink: 0; }
+
+/* ── tabs / filters ── */
+.controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+.tabs { display: flex; gap: 4px; }
+.tab { padding: 6px 14px; font-size: 12px; border-radius: 99px; cursor: pointer; border: 1px solid transparent; color: var(--text2); background: transparent; font-family: var(--sans); transition: all .15s; }
+.tab:hover { color: var(--text); }
+.tab.active { background: var(--surface2); border-color: var(--border2); color: var(--text); }
+.right-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+select.filter-sel { padding: 6px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 12px; cursor: pointer; }
+select.filter-sel:focus { outline: none; border-color: var(--border2); }
+.search-wrap { position: relative; }
+.search-wrap input { padding: 6px 10px 6px 30px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 12px; width: 180px; }
+.search-wrap input::placeholder { color: var(--text3); }
+.search-wrap input:focus { outline: none; border-color: var(--border2); }
+.search-icon { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 13px; pointer-events: none; }
+
+/* ── review list ── */
+.review-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r2); padding: 16px 18px; margin-bottom: 10px; display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: start; transition: border-color .15s; }
+.review-item:hover { border-color: var(--border2); }
+.review-sentiment { width: 4px; border-radius: 2px; align-self: stretch; flex-shrink: 0; }
+.s-positive { background: var(--green); }
+.s-negative { background: var(--red); }
+.s-neutral { background: var(--text3); }
+.review-body { min-width: 0; }
+.review-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.platform-pill { font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
+.pill-xhs { background: rgba(255,80,80,.12); color: #ff8080; }
+.pill-wechat { background: rgba(80,200,100,.12); color: #60d070; }
+.pill-tiktok { background: rgba(200,200,220,.1); color: var(--text2); }
+.pill-fb { background: rgba(91,142,240,.12); color: var(--blue); }
+.pill-google { background: rgba(240,160,48,.12); color: var(--amber); }
+.pill-yelp { background: rgba(224,84,84,.12); color: var(--red); }
+.tarro-badge { font-size: 10px; padding: 2px 7px; border-radius: 99px; background: var(--blue-dim); color: var(--blue); }
+.review-author { font-size: 12px; color: var(--text2); }
+.review-date { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+.review-text { font-size: 13px; line-height: 1.65; color: var(--text); }
+.review-category { font-size: 10px; padding: 2px 7px; border-radius: 99px; border: 1px solid var(--border); color: var(--text3); margin-top: 6px; display: inline-block; }
+.review-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.stars { display: flex; gap: 2px; }
+.star { font-size: 11px; }
+.badge-pos { font-size: 10px; padding: 3px 8px; border-radius: 99px; background: var(--green-dim); color: var(--green); font-weight: 500; }
+.badge-neg { font-size: 10px; padding: 3px 8px; border-radius: 99px; background: var(--red-dim); color: var(--red); font-weight: 500; }
+.badge-neu { font-size: 10px; padding: 3px 8px; border-radius: 99px; background: rgba(255,255,255,.06); color: var(--text3); font-weight: 500; }
+.manual-tag { font-family: var(--mono); font-size: 10px; color: var(--text3); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; }
+
+.empty { text-align: center; padding: 48px; color: var(--text3); font-size: 13px; }
+.count-label { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-bottom: 12px; }
+
+/* ── modal ── */
+.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.65); z-index: 100; align-items: center; justify-content: center; padding: 24px; }
+.modal-bg.open { display: flex; }
+.modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 16px; width: 100%; max-width: 560px; padding: 28px; }
+.modal h2 { font-size: 15px; font-weight: 500; margin-bottom: 20px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+@media(max-width:480px){ .form-row { grid-template-columns: 1fr; } }
+.form-field { display: flex; flex-direction: column; gap: 5px; }
+.form-field label { font-size: 11px; color: var(--text2); }
+.form-field select, .form-field input, .form-field textarea { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 13px; padding: 8px 10px; }
+.form-field select:focus, .form-field input:focus, .form-field textarea:focus { outline: none; border-color: var(--border2); }
+.form-field textarea { min-height: 80px; resize: vertical; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+.btn-cancel { padding: 8px 18px; background: transparent; border: 1px solid var(--border); border-radius: var(--r); color: var(--text2); font-family: var(--sans); font-size: 13px; cursor: pointer; }
+.btn-cancel:hover { border-color: var(--border2); color: var(--text); }
+.btn-save { padding: 8px 18px; background: var(--green); border: none; border-radius: var(--r); color: #0d1a12; font-family: var(--sans); font-size: 13px; font-weight: 500; cursor: pointer; }
+.btn-save:hover { opacity: .88; }
+.btn-save:disabled { opacity: .4; cursor: not-allowed; }
+.ai-status { font-size: 12px; color: var(--text2); margin-top: 8px; min-height: 18px; }
+
+/* ── footer ── */
+footer { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 40px; font-family: var(--mono); font-size: 11px; color: var(--text3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header>
+    <div class="logo">
+      <div class="logo-dot" id="statusDot"></div>
+      <div>
+        <div class="logo-text">食客通 · Review Monitor</div>
+        <div class="logo-sub">小红书 · 微信视频号 · Facebook · Google · Yelp</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="last-run" id="lastRun">loading…</span>
+      <button class="add-btn" onclick="openModal()">+ 手动录入</button>
+    </div>
+  </header>
+
+  <!-- stat cards -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">总评论</div>
+      <div class="stat-value" id="sTotal">—</div>
+      <div class="stat-sub" id="sTotalSub">涉及食客通</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">正面 Positive</div>
+      <div class="stat-value v-green" id="sPos">—</div>
+      <div class="stat-sub" id="sPosPct">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">负面 Negative</div>
+      <div class="stat-value v-red" id="sNeg">—</div>
+      <div class="stat-sub" id="sNegPct">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">提及食客通</div>
+      <div class="stat-value v-blue" id="sMention">—</div>
+      <div class="stat-sub">所有来源</div>
+    </div>
+  </div>
+
+  <!-- charts -->
+  <div class="charts">
+    <div class="card">
+      <div class="card-title">按平台分布</div>
+      <div id="platformBars"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">负面评论类别</div>
+      <div id="categoryBars"></div>
+    </div>
+  </div>
+
+  <!-- review list -->
+  <div class="controls">
+    <div class="tabs">
+      <button class="tab active" data-filter="all">全部</button>
+      <button class="tab" data-filter="positive">正面</button>
+      <button class="tab" data-filter="negative">负面</button>
+      <button class="tab" data-filter="neutral">中性</button>
+      <button class="tab" data-filter="mention">提及品牌</button>
+    </div>
+    <div class="right-controls">
+      <select class="filter-sel" id="platformFilter">
+        <option value="all">所有平台</option>
+        <option value="小红书">小红书</option>
+        <option value="微信视频号">微信视频号</option>
+        <option value="抖音">抖音</option>
+        <option value="Facebook">Facebook</option>
+        <option value="Instagram">Instagram</option>
+        <option value="Google Reviews">Google Reviews</option>
+        <option value="Yelp">Yelp</option>
+      </select>
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="searchInput" placeholder="搜索关键词…">
+      </div>
+    </div>
+  </div>
+
+  <div class="count-label" id="countLabel"></div>
+  <div id="reviewList"></div>
+
+  <footer>
+    <span>食客通 Tarro · Social Review Monitor</span>
+    <span>自动抓取: Google Reviews · Yelp · 每日 09:00 PST | 手动录入: 小红书 · 微信 · Facebook</span>
+  </footer>
+</div>
+
+<!-- add review modal -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h2>手动录入评论</h2>
+    <div class="form-row">
+      <div class="form-field">
+        <label>平台</label>
+        <select id="mPlatform">
+          <option>小红书</option>
+          <option>微信视频号</option>
+          <option>抖音</option>
+          <option>Facebook</option>
+          <option>Instagram</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>账号/来源名称</label>
+        <input type="text" id="mSource" placeholder="如 Redbook Official">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label>用户名</label>
+        <input type="text" id="mAuthor" placeholder="评论者">
+      </div>
+      <div class="form-field">
+        <label>日期</label>
+        <input type="date" id="mDate">
+      </div>
+    </div>
+    <div class="form-field" style="margin-bottom:14px">
+      <label>评论内容</label>
+      <textarea id="mText" placeholder="粘贴评论原文（支持中英文）"></textarea>
+    </div>
+    <div class="ai-status" id="aiStatus"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">取消</button>
+      <button class="btn-save" id="saveBtn" onclick="saveReview()">AI 分析 + 保存</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── state ────────────────────────────────────────────────────────────────────
+let allReviews = [];
+let activeFilter = 'all';
+let activePlatform = 'all';
+let searchQuery = '';
+
+// ── init ─────────────────────────────────────────────────────────────────────
+async function init() {
+  await Promise.all([loadMeta(), loadReviews()]);
+  bindEvents();
+}
+
+async function loadMeta() {
+  try {
+    const r = await fetch('data/meta.json?t=' + Date.now());
+    const m = await r.json();
+    document.getElementById('lastRun').textContent =
+      '上次更新 ' + m.last_run.slice(0,10);
+    document.getElementById('sTotal').textContent = m.total;
+    document.getElementById('sTotalSub').textContent = `其中提及食客通 ${m.mentions_tarro} 条`;
+    document.getElementById('sPos').textContent = m.positive;
+    document.getElementById('sPosPct').textContent = `占 ${m.positive_pct}%`;
+    document.getElementById('sNeg').textContent = m.negative;
+    document.getElementById('sNegPct').textContent = `占 ${m.negative_pct}%`;
+    document.getElementById('sMention').textContent = m.mentions_tarro;
+  } catch(e) { console.warn('meta load failed', e); }
+}
+
+async function loadReviews() {
+  try {
+    const r = await fetch('data/reviews.json?t=' + Date.now());
+    allReviews = await r.json();
+    renderCharts();
+    renderList();
+  } catch(e) {
+    document.getElementById('reviewList').innerHTML =
+      '<div class="empty">数据加载失败，请刷新重试。</div>';
+  }
+}
+
+// ── charts ────────────────────────────────────────────────────────────────────
+function renderCharts() {
+  // platform bars
+  const platCounts = {};
+  allReviews.forEach(r => { platCounts[r.platform] = (platCounts[r.platform]||0)+1; });
+  const sortedPlat = Object.entries(platCounts).sort((a,b)=>b[1]-a[1]);
+  const maxPlat = sortedPlat[0]?.[1] || 1;
+  const platColors = { '小红书':'#e05454','微信视频号':'#2ecc8a','抖音':'#7a8099','Facebook':'#5b8ef0','Instagram':'#e080c8','Google Reviews':'#f0a030','Yelp':'#e05454' };
+  document.getElementById('platformBars').innerHTML = sortedPlat.map(([plat,cnt]) =>
+    `<div class="bar-row">
+      <span class="bar-label">${plat}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxPlat*100)}%;background:${platColors[plat]||'#7a8099'}"></div></div>
+      <span class="bar-count">${cnt}</span>
+    </div>`).join('');
+
+  // category bars (negatives only)
+  const catCounts = {};
+  allReviews.filter(r=>r.sentiment==='negative').forEach(r => {
+    catCounts[r.category] = (catCounts[r.category]||0)+1;
+  });
+  const sortedCat = Object.entries(catCounts).sort((a,b)=>b[1]-a[1]);
+  const maxCat = sortedCat[0]?.[1] || 1;
+  document.getElementById('categoryBars').innerHTML = sortedCat.length
+    ? sortedCat.map(([cat,cnt]) =>
+        `<div class="bar-row">
+          <span class="bar-label">${cat}</span>
+          <div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxCat*100)}%;background:var(--red)"></div></div>
+          <span class="bar-count">${cnt}</span>
+        </div>`).join('')
+    : '<div style="color:var(--text3);font-size:13px;padding:8px 0">暂无负面评论</div>';
+}
+
+// ── list ──────────────────────────────────────────────────────────────────────
+function getFiltered() {
+  return allReviews.filter(r => {
+    if (activeFilter === 'mention' && !r.mentions_tarro) return false;
+    if (activeFilter !== 'all' && activeFilter !== 'mention' && r.sentiment !== activeFilter) return false;
+    if (activePlatform !== 'all' && r.platform !== activePlatform) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (!r.text.toLowerCase().includes(q) && !r.author.toLowerCase().includes(q) && !r.category.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function platformPillClass(p) {
+  return { '小红书':'pill-xhs','微信视频号':'pill-wechat','抖音':'pill-tiktok','Facebook':'pill-fb','Instagram':'pill-fb','Google Reviews':'pill-google','Yelp':'pill-yelp' }[p]||'pill-tiktok';
+}
+
+function starsHtml(rating) {
+  if (!rating) return '';
+  return '<div class="stars">' + [1,2,3,4,5].map(i=>
+    `<span class="star" style="color:${i<=rating?'#f0a030':'#2a2e3e'}">★</span>`).join('') + '</div>';
+}
+
+function renderList() {
+  const filtered = getFiltered();
+  document.getElementById('countLabel').textContent = `共 ${filtered.length} 条`;
+  if (!filtered.length) {
+    document.getElementById('reviewList').innerHTML = '<div class="empty">没有符合条件的评论</div>';
+    return;
+  }
+  document.getElementById('reviewList').innerHTML = filtered.map(r => {
+    const sentClass = r.sentiment === 'positive' ? 's-positive' : r.sentiment === 'negative' ? 's-negative' : 's-neutral';
+    const badge = r.sentiment === 'positive'
+      ? '<span class="badge-pos">正面</span>'
+      : r.sentiment === 'negative'
+      ? '<span class="badge-neg">负面</span>'
+      : '<span class="badge-neu">中性</span>';
+    return `<div class="review-item">
+      <div class="review-sentiment ${sentClass}"></div>
+      <div class="review-body">
+        <div class="review-meta">
+          <span class="platform-pill ${platformPillClass(r.platform)}">${r.platform}</span>
+          ${r.mentions_tarro ? '<span class="tarro-badge">提及食客通</span>' : ''}
+          <span class="review-author">${r.author || '匿名'}</span>
+          <span class="review-date">${r.date}</span>
+          ${r.manual ? '<span class="manual-tag">手动</span>' : ''}
+        </div>
+        <div class="review-text">${escHtml(r.text)}</div>
+        <span class="review-category">${r.category}</span>
+      </div>
+      <div class="review-right">
+        ${badge}
+        ${starsHtml(r.rating)}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── events ────────────────────────────────────────────────────────────────────
+function bindEvents() {
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      activeFilter = t.dataset.filter;
+      renderList();
+    });
+  });
+  document.getElementById('platformFilter').addEventListener('change', e => {
+    activePlatform = e.target.value;
+    renderList();
+  });
+  document.getElementById('searchInput').addEventListener('input', e => {
+    searchQuery = e.target.value.trim();
+    renderList();
+  });
+  document.getElementById('mDate').value = new Date().toISOString().slice(0,10);
+}
+
+// ── modal ─────────────────────────────────────────────────────────────────────
+function openModal() { document.getElementById('modalBg').classList.add('open'); }
+function closeModal() { document.getElementById('modalBg').classList.remove('open'); }
+document.getElementById('modalBg').addEventListener('click', e => {
+  if (e.target === document.getElementById('modalBg')) closeModal();
+});
+
+async function saveReview() {
+  const text = document.getElementById('mText').value.trim();
+  if (!text) { alert('请输入评论内容'); return; }
+  const btn = document.getElementById('saveBtn');
+  const status = document.getElementById('aiStatus');
+  btn.disabled = true;
+  status.textContent = 'AI 分析中…';
+
+  const platform = document.getElementById('mPlatform').value;
+  const source = document.getElementById('mSource').value || platform;
+  const author = document.getElementById('mAuthor').value || '匿名';
+  const date = document.getElementById('mDate').value;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: `分析这条来自${platform}的餐厅评论，判断是否提及食客通/Tarro，并分类。
+评论：${text}
+
+只返回JSON：{"mentions_tarro":bool,"sentiment":"positive|negative|neutral","category":"好评|价格投诉|服务问题|恶意差评|功能建议|其他","summary":"10字内核心"}`
+        }]
+      })
+    });
+    const data = await resp.json();
+    const raw = (data.content||[]).map(c=>c.text||'').join('').replace(/```json|```/g,'').trim();
+    const ai = JSON.parse(raw);
+    status.textContent = `✓ 分析完成：${ai.sentiment === 'positive' ? '正面' : ai.sentiment === 'negative' ? '负面' : '中性'} · ${ai.category}`;
+
+    const review = {
+      id: `manual:${platform}:${Date.now()}`,
+      platform, source_name: source, author, date,
+      rating: null, text,
+      url: '', manual: true,
+      fetched_at: new Date().toISOString(),
+      mentions_tarro: ai.mentions_tarro,
+      sentiment: ai.sentiment,
+      category: ai.category
+    };
+    allReviews.unshift(review);
+    renderCharts();
+    renderList();
+    updateStatCards();
+    setTimeout(() => { closeModal(); btn.disabled = false; status.textContent = ''; document.getElementById('mText').value = ''; }, 800);
+  } catch(e) {
+    status.textContent = '分析失败，按关键词简单分类…';
+    const review = {
+      id: `manual:${platform}:${Date.now()}`,
+      platform, source_name: source, author, date,
+      rating: null, text, url: '', manual: true,
+      fetched_at: new Date().toISOString(),
+      mentions_tarro: /食客通|tarro|wonders/i.test(text),
+      sentiment: /好|棒|推荐|赞|省事/.test(text) ? 'positive' : /贵|差|垃圾|烂|口音/.test(text) ? 'negative' : 'neutral',
+      category: /价格|贵/.test(text) ? '价格投诉' : /口音|接线/.test(text) ? '服务问题' : /垃圾|骗/.test(text) ? '恶意差评' : '其他'
+    };
+    allReviews.unshift(review);
+    renderCharts(); renderList(); updateStatCards();
+    setTimeout(() => { closeModal(); btn.disabled = false; status.textContent = ''; document.getElementById('mText').value = ''; }, 1000);
+  }
+}
+
+function updateStatCards() {
+  const t = allReviews.length;
+  const pos = allReviews.filter(r=>r.sentiment==='positive').length;
+  const neg = allReviews.filter(r=>r.sentiment==='negative').length;
+  const men = allReviews.filter(r=>r.mentions_tarro).length;
+  document.getElementById('sTotal').textContent = t;
+  document.getElementById('sTotalSub').textContent = `其中提及食客通 ${men} 条`;
+  document.getElementById('sPos').textContent = pos;
+  document.getElementById('sPosPct').textContent = t ? `占 ${Math.round(pos/t*100)}%` : '—';
+  document.getElementById('sNeg').textContent = neg;
+  document.getElementById('sNegPct').textContent = t ? `占 ${Math.round(neg/t*100)}%` : '—';
+  document.getElementById('sMention').textContent = men;
+}
+
+init();
+</script>
+</body>
+</html>
