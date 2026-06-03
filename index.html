@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>食客通 · Review Monitor</title>
+<title>Tarro · Review Monitor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -12,8 +12,6 @@
 html{font-size:14px;-webkit-font-smoothing:antialiased}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh}
 .app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
-
-/* sidebar */
 .sb{background:var(--s1);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
 .sb-top{padding:18px 16px 14px;border-bottom:1px solid var(--border)}
 .sb-logo{display:flex;align-items:center;gap:8px;margin-bottom:3px}
@@ -31,27 +29,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .sb-div{height:1px;background:var(--border);margin:6px 10px}
 .add-btn{display:flex;align-items:center;justify-content:center;gap:6px;margin:10px;padding:9px;background:var(--green);border:none;border-radius:var(--r);color:#fff;font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;transition:opacity .15s}
 .add-btn:hover{opacity:.85}
-
-/* main */
 .main{padding:26px 30px 80px;overflow-y:auto;max-width:960px}
 .mh{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:12px;flex-wrap:wrap}
 .mh-left h1{font-size:19px;font-weight:500}
 .mh-sub{font-size:13px;color:var(--text2);margin-top:3px}
 .last-run{font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:5px}
-.run-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;border-radius:var(--r);border:1px solid var(--border2);background:var(--s2);color:var(--text);transition:all .15s;white-space:nowrap}
-.run-btn:hover{border-color:var(--border3)}
-
-/* stats */
+.lang-btn{display:flex;align-items:center;gap:4px;padding:6px 14px;font-size:12px;font-weight:500;cursor:pointer;border-radius:99px;border:1px solid var(--border2);background:var(--s2);color:var(--text);transition:all .15s;white-space:nowrap;font-family:var(--sans)}
+.lang-btn:hover{border-color:var(--border3)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}
 .stat{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px}
 .stat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
 .stat-v{font-size:24px;font-weight:500;font-family:var(--mono);line-height:1}
 .stat-s{font-size:11px;color:var(--text2);margin-top:4px}
-
-/* source panel */
 .sp{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:22px}
 .sp-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;cursor:pointer;user-select:none}
-.sp-head:hover .sp-toggle{color:var(--text)}
 .sp-title{font-size:13px;font-weight:500}
 .sp-hint{font-size:11px;color:var(--text2);margin-top:2px}
 .sp-toggle{font-size:11px;color:var(--text3);border:1px solid var(--border);border-radius:99px;padding:3px 10px;transition:color .15s}
@@ -66,8 +57,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .kw-t{font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .kw-a{display:flex;align-items:center;gap:3px;padding:3px 8px;font-size:11px;background:transparent;border:1px solid var(--border2);border-radius:99px;color:var(--text2);cursor:pointer;text-decoration:none;transition:all .15s;flex-shrink:0;white-space:nowrap}
 .kw-a:hover{background:var(--s3);color:var(--text);border-color:var(--border3)}
-
-/* charts */
 .charts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
 .card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:15px 17px}
 .card-ttl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
@@ -76,8 +65,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .bar-track{flex:1;height:4px;background:var(--s3);border-radius:2px;overflow:hidden}
 .bar-fill{height:100%;border-radius:2px;transition:width .5s}
 .bar-n{font-family:var(--mono);font-size:11px;color:var(--text3);min-width:16px;text-align:right}
-
-/* controls */
 .ctrl{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
 .tabs{display:flex;gap:3px}
 .tab{padding:5px 12px;font-size:12px;border-radius:99px;cursor:pointer;border:1px solid transparent;color:var(--text2);background:transparent;font-family:var(--sans);transition:all .15s}
@@ -88,8 +75,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .srch input::placeholder{color:var(--text3)}
 .srch-ico{position:absolute;left:7px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:12px;pointer-events:none}
 .count-lbl{font-size:11px;color:var(--text3);font-family:var(--mono);margin-bottom:8px}
-
-/* review items */
 .rv{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:13px 15px;margin-bottom:8px;display:grid;grid-template-columns:3px 1fr auto;gap:11px;align-items:start;transition:border-color .15s;animation:fi .2s ease}
 @keyframes fi{from{opacity:0;transform:translateY(3px)}to{opacity:1}}
 .rv:hover{border-color:var(--border2)}
@@ -123,8 +108,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .badge-neu{font-size:10px;padding:3px 8px;border-radius:99px;background:rgba(255,255,255,.04);color:var(--text3);font-weight:500}
 .stars{font-size:11px}
 .empty{text-align:center;padding:44px;color:var(--text3);font-size:13px}
-
-/* modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
 .modal{background:var(--s1);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:520px;padding:24px;max-height:90vh;overflow-y:auto}
@@ -145,24 +128,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .btn-s{padding:7px 16px;background:var(--green);border:none;border-radius:var(--r);color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans)}
 .btn-s:hover{opacity:.88}
 .btn-s:disabled{opacity:.4;cursor:not-allowed}
-.notice{background:var(--amber-bg);border:1px solid rgba(186,117,23,.25);border-radius:var(--r);padding:10px 13px;margin-bottom:18px;font-size:12px;color:#d4a040;line-height:1.6}
 footer{border-top:1px solid var(--border);padding-top:14px;margin-top:28px;font-family:var(--mono);font-size:11px;color:var(--text3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
-.spin{animation:spin .7s linear infinite;display:inline-block}
-@keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:720px){.app{grid-template-columns:1fr}.sb{position:static;height:auto}.stats{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="app">
-
 <aside class="sb">
   <div class="sb-top">
-    <div class="sb-logo"><div class="dot"></div><span class="sb-name">食客通 · Review Monitor</span></div>
+    <div class="sb-logo"><div class="dot"></div><span class="sb-name">Tarro · Review Monitor</span></div>
     <div class="sb-sub">Brand Listening Dashboard</div>
   </div>
   <div class="sb-sec">
-    <div class="sb-lbl">中文平台</div>
-    <button class="pb active" onclick="filterPlat('all',this)"><span class="pb-icon">🌐</span><span class="pb-name">全部</span><span class="pb-n" id="pc-all">0</span></button>
+    <div class="sb-lbl" data-zh="中文平台" data-en="Chinese Platforms">中文平台</div>
+    <button class="pb active" onclick="filterPlat('all',this)"><span class="pb-icon">🌐</span><span class="pb-name" data-zh="全部" data-en="All">全部</span><span class="pb-n" id="pc-all">0</span></button>
     <button class="pb" onclick="filterPlat('小红书',this)"><span class="pb-icon">📕</span><span class="pb-name">小红书</span><span class="pb-n" id="pc-小红书">0</span></button>
     <button class="pb" onclick="filterPlat('微信',this)"><span class="pb-icon">💬</span><span class="pb-name">微信</span><span class="pb-n" id="pc-微信">0</span></button>
     <button class="pb" onclick="filterPlat('抖音',this)"><span class="pb-icon">🎵</span><span class="pb-name">抖音</span><span class="pb-n" id="pc-抖音">0</span></button>
@@ -170,73 +149,59 @@ footer{border-top:1px solid var(--border);padding-top:14px;margin-top:28px;font-
   </div>
   <div class="sb-div"></div>
   <div class="sb-sec">
-    <div class="sb-lbl">英文平台（自动抓）</div>
+    <div class="sb-lbl" data-zh="英文平台（自动抓）" data-en="English Platforms (Auto)">英文平台（自动抓）</div>
     <button class="pb" onclick="filterPlat('Reddit',this)"><span class="pb-icon">🤖</span><span class="pb-name">Reddit</span><span class="pb-n" id="pc-Reddit">0</span></button>
-    <button class="pb" onclick="filterPlat('Web',this)"><span class="pb-icon">🌍</span><span class="pb-name">Google 全网</span><span class="pb-n" id="pc-Web">0</span></button>
+    <button class="pb" onclick="filterPlat('Web',this)"><span class="pb-icon">🌍</span><span class="pb-name" data-zh="Google 全网" data-en="Google Web">Google 全网</span><span class="pb-n" id="pc-Web">0</span></button>
     <button class="pb" onclick="filterPlat('YouTube',this)"><span class="pb-icon">📺</span><span class="pb-name">YouTube</span><span class="pb-n" id="pc-YouTube">0</span></button>
     <button class="pb" onclick="filterPlat('Facebook',this)"><span class="pb-icon">📘</span><span class="pb-name">Facebook</span><span class="pb-n" id="pc-Facebook">0</span></button>
     <button class="pb" onclick="filterPlat('Yelp',this)"><span class="pb-icon">⭐</span><span class="pb-name">Yelp / Google</span><span class="pb-n" id="pc-Yelp">0</span></button>
   </div>
   <div class="sb-div"></div>
-  <button class="add-btn" onclick="openModal()">+ 手动录入评论</button>
+  <button class="add-btn" onclick="openModal()" id="addBtn">+ 手动录入评论</button>
 </aside>
 
 <main class="main">
   <div class="mh">
     <div class="mh-left">
-      <h1>品牌评论监控</h1>
-      <div class="mh-sub">Reddit + Google 自动抓取 · 中文平台手动录入</div>
+      <h1 id="mainTitle">品牌评论监控</h1>
+      <div class="mh-sub" id="mainSub">Reddit + Google + YouTube 自动抓取 · 中文平台手动录入</div>
       <div class="last-run" id="lastRun">加载中…</div>
     </div>
+    <button class="lang-btn" onclick="toggleLang()" id="langBtn">🌐 English</button>
   </div>
 
   <div class="stats">
-    <div class="stat"><div class="stat-l">总条数</div><div class="stat-v" id="sTotal">—</div><div class="stat-s" id="sTarro">提及食客通 —</div></div>
-    <div class="stat"><div class="stat-l">正面</div><div class="stat-v" id="sPos" style="color:var(--green)">—</div><div class="stat-s" id="sPosPct">—</div></div>
-    <div class="stat"><div class="stat-l">负面</div><div class="stat-v" id="sNeg" style="color:var(--red)">—</div><div class="stat-s" id="sNegPct">—</div></div>
-    <div class="stat"><div class="stat-l">竞品提及</div><div class="stat-v" id="sComp" style="color:var(--amber)">—</div><div class="stat-s">sales leads</div></div>
+    <div class="stat"><div class="stat-l" id="s1l">总条数</div><div class="stat-v" id="sTotal">—</div><div class="stat-s" id="sTarro">提及食客通 —</div></div>
+    <div class="stat"><div class="stat-l" id="s2l">正面</div><div class="stat-v" id="sPos" style="color:var(--green)">—</div><div class="stat-s" id="sPosPct">—</div></div>
+    <div class="stat"><div class="stat-l" id="s3l">负面</div><div class="stat-v" id="sNeg" style="color:var(--red)">—</div><div class="stat-s" id="sNegPct">—</div></div>
+    <div class="stat"><div class="stat-l" id="s4l">竞品提及</div><div class="stat-v" id="sComp" style="color:var(--amber)">—</div><div class="stat-s" id="s4s">sales leads</div></div>
   </div>
 
-  <!-- search links -->
   <div class="sp">
     <div class="sp-head" onclick="toggleSP()">
-      <div><div class="sp-title">🔍 搜索链接中心（中文平台）</div><div class="sp-hint">手动搜索 → 看到内容 → 点「手动录入」填入</div></div>
+      <div><div class="sp-title" id="spTitle">🔍 搜索链接中心（中文平台）</div><div class="sp-hint" id="spHint">手动搜索 → 看到内容 → 点「手动录入」填入</div></div>
       <span class="sp-toggle" id="spToggle">展开</span>
     </div>
     <div class="sp-body" id="spBody">
-      <div class="sp-section">
-        <div class="sp-section-lbl">小红书</div>
-        <div class="kw-grid" id="kw-xhs"></div>
-      </div>
-      <div class="sp-section">
-        <div class="sp-section-lbl">微信公众号</div>
-        <div class="kw-grid" id="kw-wx"></div>
-      </div>
-      <div class="sp-section">
-        <div class="sp-section-lbl">抖音 / 知乎</div>
-        <div class="kw-grid" id="kw-other"></div>
-      </div>
-      <div class="sp-section">
-        <div class="sp-section-lbl">YouTube / Facebook / Twitter（需登录）</div>
-        <div class="kw-grid" id="kw-en"></div>
-      </div>
+      <div class="sp-section"><div class="sp-section-lbl">小红书</div><div class="kw-grid" id="kw-xhs"></div></div>
+      <div class="sp-section"><div class="sp-section-lbl" id="wxLbl">微信公众号</div><div class="kw-grid" id="kw-wx"></div></div>
+      <div class="sp-section"><div class="sp-section-lbl">抖音 / 知乎</div><div class="kw-grid" id="kw-other"></div></div>
+      <div class="sp-section"><div class="sp-section-lbl" id="enLbl">YouTube / Facebook / Twitter（需登录）</div><div class="kw-grid" id="kw-en"></div></div>
     </div>
   </div>
 
-  <!-- charts -->
   <div class="charts">
-    <div class="card"><div class="card-ttl">来源分布</div><div id="platBars"><div style="font-size:12px;color:var(--text3)">暂无数据</div></div></div>
-    <div class="card"><div class="card-ttl">负面类别</div><div id="catBars"><div style="font-size:12px;color:var(--text3)">暂无负面</div></div></div>
+    <div class="card"><div class="card-ttl" id="chartLbl1">来源分布</div><div id="platBars"><div style="font-size:12px;color:var(--text3)">暂无数据</div></div></div>
+    <div class="card"><div class="card-ttl" id="chartLbl2">负面类别</div><div id="catBars"><div style="font-size:12px;color:var(--text3)">暂无负面</div></div></div>
   </div>
 
-  <!-- list -->
   <div class="ctrl">
     <div class="tabs" id="tabs">
-      <button class="tab active" data-f="all">全部</button>
-      <button class="tab" data-f="positive">正面</button>
-      <button class="tab" data-f="negative">负面</button>
-      <button class="tab" data-f="neutral">中性</button>
-      <button class="tab" data-f="mention">提及品牌</button>
+      <button class="tab active" data-f="all" data-zh="全部" data-en="All">全部</button>
+      <button class="tab" data-f="positive" data-zh="正面" data-en="Positive">正面</button>
+      <button class="tab" data-f="negative" data-zh="负面" data-en="Negative">负面</button>
+      <button class="tab" data-f="neutral" data-zh="中性" data-en="Neutral">中性</button>
+      <button class="tab" data-f="mention" data-zh="提及品牌" data-en="Brand Mention">提及品牌</button>
     </div>
     <div class="srch"><span class="srch-ico">⌕</span><input type="text" id="searchQ" placeholder="搜索关键词…"></div>
   </div>
@@ -244,44 +209,119 @@ footer{border-top:1px solid var(--border);padding-top:14px;margin-top:28px;font-
   <div id="rvList"><div class="empty">加载中…</div></div>
 
   <footer>
-    <span>食客通 Tarro · Review Monitor</span>
-    <span>Reddit + Google 自动 · 中文平台手动录入 · 每日 09:00 PST 更新</span>
+    <span>Tarro · Review Monitor</span>
+    <span id="footerSub">Reddit + Google + YouTube 自动 · 中文平台手动录入 · 每日 09:00 PST 更新</span>
   </footer>
 </main>
 </div>
 
-<!-- modal -->
 <div class="modal-overlay" id="mo">
   <div class="modal">
-    <div class="modal-head"><h2>手动录入评论</h2><button class="mx" onclick="closeModal()">✕</button></div>
+    <div class="modal-head"><h2 id="modalTitle">手动录入评论</h2><button class="mx" onclick="closeModal()">✕</button></div>
     <div class="frow">
-      <div class="ff"><label>平台</label>
+      <div class="ff"><label id="mPlatLbl">平台</label>
         <select id="mPlat"><option>小红书</option><option>微信</option><option>抖音</option><option>知乎</option><option>YouTube</option><option>Facebook</option><option>Instagram</option><option>Twitter</option><option>Yelp</option><option>Google</option></select>
       </div>
-      <div class="ff"><label>账号/来源</label><input type="text" id="mSrc" placeholder="如 小红书官号"></div>
+      <div class="ff"><label id="mSrcLbl">账号/来源</label><input type="text" id="mSrc" placeholder="如 小红书官号"></div>
     </div>
     <div class="frow">
-      <div class="ff"><label>用户名</label><input type="text" id="mAuthor" placeholder="评论者"></div>
-      <div class="ff"><label>日期</label><input type="date" id="mDate"></div>
+      <div class="ff"><label id="mAuthorLbl">用户名</label><input type="text" id="mAuthor" placeholder="评论者"></div>
+      <div class="ff"><label id="mDateLbl">日期</label><input type="date" id="mDate"></div>
     </div>
-    <div class="ff" style="margin-bottom:10px"><label>评论内容 <span style="color:var(--text3);font-weight:400">（从平台复制粘贴）</span></label>
+    <div class="ff" style="margin-bottom:10px"><label id="mTextLbl">评论内容</label>
       <textarea id="mText" placeholder="粘贴评论原文，中英文均可…"></textarea>
     </div>
     <div class="frow">
-      <div class="ff"><label>原文链接（可选）</label><input type="text" id="mUrl" placeholder="https://..."></div>
-      <div class="ff"><label>星级（可选）</label>
-        <select id="mRating"><option value="">无</option><option value="5">⭐⭐⭐⭐⭐ 5星</option><option value="4">⭐⭐⭐⭐ 4星</option><option value="3">⭐⭐⭐ 3星</option><option value="2">⭐⭐ 2星</option><option value="1">⭐ 1星</option></select>
+      <div class="ff"><label id="mUrlLbl">原文链接（可选）</label><input type="text" id="mUrl" placeholder="https://..."></div>
+      <div class="ff"><label id="mRatingLbl">星级（可选）</label>
+        <select id="mRating"><option value="">无</option><option value="5">⭐⭐⭐⭐⭐ 5</option><option value="4">⭐⭐⭐⭐ 4</option><option value="3">⭐⭐⭐ 3</option><option value="2">⭐⭐ 2</option><option value="1">⭐ 1</option></select>
       </div>
     </div>
     <div class="ai-st" id="aiSt"></div>
     <div class="mact">
-      <button class="btn-c" onclick="closeModal()">取消</button>
+      <button class="btn-c" onclick="closeModal()" id="cancelBtn">取消</button>
       <button class="btn-s" id="saveBtn" onclick="saveReview()">✦ AI 分析 + 保存</button>
     </div>
   </div>
 </div>
 
 <script>
+// ── i18n ──────────────────────────────────────────────────────────────────────
+let lang = 'zh';
+const T = {
+  zh: {
+    mainTitle:'品牌评论监控', mainSub:'Reddit + Google + YouTube 自动抓取 · 中文平台手动录入',
+    lastRunPrefix:'自动抓取:', lastRunSuffix:'· 每日更新',
+    s1l:'总条数', s2l:'正面', s3l:'负面', s4l:'竞品提及', s4s:'sales leads',
+    sTarroPrefix:'提及食客通',
+    spTitle:'🔍 搜索链接中心（中文平台）', spHint:'手动搜索 → 看到内容 → 点「手动录入」填入',
+    spToggleOpen:'展开', spToggleClose:'收起',
+    chartLbl1:'来源分布', chartLbl2:'负面类别',
+    addBtn:'+ 手动录入评论', langBtn:'🌐 English',
+    modalTitle:'手动录入评论', mPlatLbl:'平台', mSrcLbl:'账号/来源',
+    mAuthorLbl:'用户名', mDateLbl:'日期', mTextLbl:'评论内容',
+    mUrlLbl:'原文链接（可选）', mRatingLbl:'星级（可选）',
+    cancelBtn:'取消', saveBtn:'✦ AI 分析 + 保存',
+    countPrefix:'共', countSuffix:'条',
+    footerSub:'Reddit + Google + YouTube 自动 · 中文平台手动录入 · 每日 09:00 PST 更新',
+    noData:'暂无数据', noNeg:'暂无负面', loading:'加载中…', noMatch:'没有符合条件的评论',
+    srchPlaceholder:'搜索关键词…', srcPlaceholder:'如 小红书官号',
+    autoTag:'自动', manualTag:'手动', tarroTag:'@ 食客通', compTag:'竞品',
+    origLink:'↗ 原文', badgePos:'正面', badgeNeg:'负面', badgeNeu:'中性',
+    wxLbl:'微信公众号', enLbl:'YouTube / Facebook / Twitter（需登录）',
+    openLink:'打开 ↗',
+    catMap:{'好评':'好评','价格投诉':'价格投诉','服务问题':'服务问题','恶意差评':'恶意差评','功能建议':'功能建议','竞品提及':'竞品提及','其他':'其他'},
+  },
+  en: {
+    mainTitle:'Brand Review Monitor', mainSub:'Auto-fetch: Reddit + Google + YouTube · Manual: Chinese platforms',
+    lastRunPrefix:'Last scraped:', lastRunSuffix:'· Updates daily',
+    s1l:'Total', s2l:'Positive', s3l:'Negative', s4l:'Competitor', s4s:'sales leads',
+    sTarroPrefix:'Mention Tarro',
+    spTitle:'🔍 Search Links (Chinese Platforms)', spHint:'Search manually → find content → click "Add Review"',
+    spToggleOpen:'Expand', spToggleClose:'Collapse',
+    chartLbl1:'By Source', chartLbl2:'Negative Categories',
+    addBtn:'+ Add Review', langBtn:'🌐 中文',
+    modalTitle:'Add Review', mPlatLbl:'Platform', mSrcLbl:'Account / Source',
+    mAuthorLbl:'Username', mDateLbl:'Date', mTextLbl:'Review Content',
+    mUrlLbl:'Original URL (optional)', mRatingLbl:'Rating (optional)',
+    cancelBtn:'Cancel', saveBtn:'✦ AI Analyze + Save',
+    countPrefix:'Total', countSuffix:'results',
+    footerSub:'Auto: Reddit + Google + YouTube · Manual: Chinese platforms · Daily 09:00 PST',
+    noData:'No data yet', noNeg:'No negative reviews', loading:'Loading…', noMatch:'No matching reviews',
+    srchPlaceholder:'Search keywords…', srcPlaceholder:'e.g. Redbook Official',
+    autoTag:'auto', manualTag:'manual', tarroTag:'@ Tarro', compTag:'competitor',
+    origLink:'↗ Source', badgePos:'Positive', badgeNeg:'Negative', badgeNeu:'Neutral',
+    wxLbl:'WeChat Articles', enLbl:'YouTube / Facebook / Twitter (login required)',
+    openLink:'Open ↗',
+    catMap:{'好评':'Positive','价格投诉':'Pricing','服务问题':'Service','恶意差评':'Bad Faith','功能建议':'Feature Request','竞品提及':'Competitor','其他':'Other'},
+  }
+};
+
+function t(key){ return T[lang][key] || key; }
+
+function toggleLang(){
+  lang = lang === 'zh' ? 'en' : 'zh';
+  applyLang();
+  renderList();
+  renderCharts();
+}
+
+function applyLang(){
+  const keys = ['mainTitle','mainSub','s1l','s2l','s3l','s4l','s4s','spTitle','spHint','chartLbl1','chartLbl2','addBtn','langBtn','modalTitle','mPlatLbl','mSrcLbl','mAuthorLbl','mDateLbl','mTextLbl','mUrlLbl','mRatingLbl','cancelBtn','wxLbl','enLbl','footerSub'];
+  keys.forEach(k => { const el = document.getElementById(k); if(el) el.textContent = t(k); });
+  document.getElementById('saveBtn').textContent = t('saveBtn');
+  document.getElementById('spToggle').textContent = spOpen ? t('spToggleClose') : t('spToggleOpen');
+  document.getElementById('searchQ').placeholder = t('srchPlaceholder');
+  document.getElementById('mSrc').placeholder = t('srcPlaceholder');
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.textContent = tab.dataset[lang] || tab.textContent;
+  });
+  document.querySelectorAll('[data-zh]').forEach(el => {
+    if(!el.classList.contains('tab')) el.textContent = el.dataset[lang];
+  });
+  updateStats();
+}
+
 // ── search links ──────────────────────────────────────────────────────────────
 const LINKS = {
   'kw-xhs': [
@@ -289,109 +329,96 @@ const LINKS = {
     {plat:'小红书', kw:'Tarro', url:'https://www.xiaohongshu.com/search_result?keyword=Tarro'},
     {plat:'小红书', kw:'中餐厅电话', url:'https://www.xiaohongshu.com/search_result?keyword=%E4%B8%AD%E9%A4%90%E5%8E%85%E7%94%B5%E8%AF%9D'},
     {plat:'小红书', kw:'食客通 差评', url:'https://www.xiaohongshu.com/search_result?keyword=%E9%A3%9F%E5%AE%A2%E9%80%9A+%E5%B7%AE%E8%AF%84'},
-    {plat:'小红书', kw:'餐厅接线服务', url:'https://www.xiaohongshu.com/search_result?keyword=%E9%A4%90%E5%8E%85%E6%8E%A5%E7%BA%BF%E6%9C%8D%E5%8A%A1'},
   ],
   'kw-wx': [
     {plat:'微信', kw:'食客通', url:'https://weixin.sogou.com/weixin?type=2&query=%E9%A3%9F%E5%AE%A2%E9%80%9A'},
     {plat:'微信', kw:'Tarro餐厅', url:'https://weixin.sogou.com/weixin?type=2&query=Tarro%E9%A4%90%E5%8E%85'},
     {plat:'微信', kw:'食客通 差评', url:'https://weixin.sogou.com/weixin?type=2&query=%E9%A3%9F%E5%AE%A2%E9%80%9A+%E5%B7%AE%E8%AF%84'},
-    {plat:'微信', kw:'中餐厅电话系统', url:'https://weixin.sogou.com/weixin?type=2&query=%E4%B8%AD%E9%A4%90%E5%8E%85%E7%94%B5%E8%AF%9D%E7%B3%BB%E7%BB%9F'},
   ],
   'kw-other': [
     {plat:'抖音', kw:'食客通', url:'https://www.douyin.com/search/%E9%A3%9F%E5%AE%A2%E9%80%9A'},
     {plat:'抖音', kw:'Tarro', url:'https://www.douyin.com/search/Tarro'},
-    {plat:'抖音', kw:'中餐厅电话', url:'https://www.douyin.com/search/%E4%B8%AD%E9%A4%90%E5%8E%85%E7%94%B5%E8%AF%9D'},
     {plat:'知乎', kw:'食客通', url:'https://www.zhihu.com/search?type=content&q=%E9%A3%9F%E5%AE%A2%E9%80%9A'},
     {plat:'知乎', kw:'食客通 差评', url:'https://www.zhihu.com/search?type=content&q=%E9%A3%9F%E5%AE%A2%E9%80%9A+%E5%B7%AE%E8%AF%84'},
-    {plat:'知乎', kw:'外卖电话接听', url:'https://www.zhihu.com/search?type=content&q=%E5%A4%96%E5%8D%96%E7%94%B5%E8%AF%9D%E6%8E%A5%E5%90%AC'},
   ],
   'kw-en': [
     {plat:'YouTube', kw:'食客通', url:'https://www.youtube.com/results?search_query=%E9%A3%9F%E5%AE%A2%E9%80%9A'},
     {plat:'YouTube', kw:'Tarro restaurant', url:'https://www.youtube.com/results?search_query=Tarro+restaurant'},
-    {plat:'YouTube', kw:'Chinese takeout phone', url:'https://www.youtube.com/results?search_query=chinese+takeout+phone+ordering'},
     {plat:'Facebook', kw:'食客通', url:'https://www.facebook.com/search/top?q=%E9%A3%9F%E5%AE%A2%E9%80%9A'},
-    {plat:'Facebook', kw:'Tarro restaurant', url:'https://www.facebook.com/search/top?q=Tarro+restaurant'},
-    {plat:'Twitter', kw:'食客通', url:'https://twitter.com/search?q=%E9%A3%9F%E5%AE%A2%E9%80%9A&f=live'},
     {plat:'Twitter', kw:'Tarro restaurant', url:'https://twitter.com/search?q=Tarro+restaurant&f=live'},
   ]
 };
-
 Object.entries(LINKS).forEach(([id,links])=>{
   document.getElementById(id).innerHTML=links.map(l=>`
-    <div class="kw">
-      <div><div class="kw-p">${l.plat}</div><div class="kw-t">${l.kw}</div></div>
-      <a class="kw-a" href="${l.url}" target="_blank">打开 ↗</a>
-    </div>`).join('');
+    <div class="kw"><div><div class="kw-p">${l.plat}</div><div class="kw-t">${l.kw}</div></div>
+    <a class="kw-a" href="${l.url}" target="_blank" id="openLink">${t('openLink')} ↗</a></div>`).join('');
 });
 
 let spOpen=false;
 function toggleSP(){
   spOpen=!spOpen;
   document.getElementById('spBody').classList.toggle('open',spOpen);
-  document.getElementById('spToggle').textContent=spOpen?'收起':'展开';
+  document.getElementById('spToggle').textContent=spOpen?t('spToggleClose'):t('spToggleOpen');
 }
 
 // ── state ─────────────────────────────────────────────────────────────────────
 let reviews=[];
 let manualReviews=JSON.parse(localStorage.getItem('tarro_manual')||'[]');
 let activeF='all', activePlat='all', searchQ='';
-
 const PLAT_COLORS={小红书:'#E24B4A',微信:'#1D9E75',抖音:'#7a8099',知乎:'#378ADD',Reddit:'#BA7517',Web:'#7F77DD',YouTube:'#E24B4A',Facebook:'#378ADD',Instagram:'#D4537E',Twitter:'#29B6F6',Yelp:'#E24B4A',Google:'#BA7517'};
 function pillClass(p){return{小红书:'pill-xhs',微信:'pill-wechat',抖音:'pill-douyin',知乎:'pill-zhihu',Reddit:'pill-reddit',Web:'pill-web',YouTube:'pill-yt',Facebook:'pill-fb',Instagram:'pill-ig',Twitter:'pill-tw',Yelp:'pill-yelp',Google:'pill-yelp'}[p]||'pill-web'}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function tarro(t){return/食客通|tarro|wondersco/i.test(t)}
-function competitor(t){return/otter|popmenu|toast|square|clover|revel|aloha|doordash|ubereats|grubhub/i.test(t)}
+function tarroM(t){return/食客通|tarro|wondersco/i.test(t)}
+function compM(t){return/otter|popmenu|toast pos|square pos|clover|grubhub|ubereats|doordash/i.test(t)}
 function sentiment(t,r){
   if(r)return r>=4?'positive':r<=2?'negative':'neutral';
   const p=(t.match(/好|棒|赞|推荐|helpful|great|love|excellent|amazing/gi)||[]).length;
   const n=(t.match(/差|烂|垃圾|贵|骗|口音|bad|terrible|awful|scam|rude|worst/gi)||[]).length;
   return p>n?'positive':n>p?'negative':'neutral';
 }
-function category(t){
-  if(/价格|贵|price|expensive/i.test(t))return'价格投诉';
-  if(/口音|accent|接线|hold|wait/i.test(t))return'服务问题';
-  if(/垃圾|骗|spam|scam|fraud/i.test(t))return'恶意差评';
-  if(/功能|feature|建议|suggest/i.test(t))return'功能建议';
-  if(/推荐|好用|recommend|love|great/i.test(t))return'好评';
-  if(competitor(t))return'竞品提及';
+function category(tx){
+  if(/价格|贵|price|expensive/i.test(tx))return'价格投诉';
+  if(/口音|accent|接线|hold|wait/i.test(tx))return'服务问题';
+  if(/垃圾|骗|spam|scam|fraud/i.test(tx))return'恶意差评';
+  if(/功能|feature|建议|suggest/i.test(tx))return'功能建议';
+  if(/推荐|好用|recommend|love|great/i.test(tx))return'好评';
+  if(compM(tx))return'竞品提及';
   return'其他';
 }
 
-// ── load data ─────────────────────────────────────────────────────────────────
 async function loadData(){
   try{
     const r=await fetch('data/reviews.json?t='+Date.now());
     const auto=await r.json();
-    reviews=[...manualReviews,...auto];
-    // last run from meta
+    reviews=[...manualReviews,...auto.filter(r=>!r.manual)];
     try{
       const m=await fetch('data/meta.json?t='+Date.now());
       const meta=await m.json();
-      document.getElementById('lastRun').textContent='自动抓取: '+meta.last_run.slice(0,10)+' · Reddit+Google 每日更新';
+      document.getElementById('lastRun').textContent=t('lastRunPrefix')+' '+meta.last_run.slice(0,10)+' '+t('lastRunSuffix');
     }catch(e){}
   }catch(e){
     reviews=[...manualReviews];
-    document.getElementById('lastRun').textContent='数据文件未找到 — 请先运行 GitHub Actions';
+    document.getElementById('lastRun').textContent=lang==='zh'?'数据加载中，请稍候…':'Loading data…';
   }
   updateAll();
 }
 
-function updateAll(){updateStats();renderCharts();renderList()}
+function updateAll(){updateStats();renderCharts();renderList();}
 
 function updateStats(){
   const all=getAll();
-  const t=all.length,pos=all.filter(r=>r.sentiment==='positive').length,neg=all.filter(r=>r.sentiment==='negative').length,men=all.filter(r=>r.mentions_tarro).length,comp=all.filter(r=>r.is_competitor).length;
-  document.getElementById('sTotal').textContent=t;
-  document.getElementById('sTarro').textContent='提及食客通 '+men;
+  const tot=all.length,pos=all.filter(r=>r.sentiment==='positive').length,neg=all.filter(r=>r.sentiment==='negative').length,men=all.filter(r=>r.mentions_tarro).length,comp=all.filter(r=>r.is_competitor).length;
+  document.getElementById('sTotal').textContent=tot;
+  document.getElementById('sTarro').textContent=t('sTarroPrefix')+' '+men;
   document.getElementById('sPos').textContent=pos;
-  document.getElementById('sPosPct').textContent=t?Math.round(pos/t*100)+'%':'—';
+  document.getElementById('sPosPct').textContent=tot?Math.round(pos/tot*100)+'%':'—';
   document.getElementById('sNeg').textContent=neg;
-  document.getElementById('sNegPct').textContent=t?Math.round(neg/t*100)+'%':'—';
+  document.getElementById('sNegPct').textContent=tot?Math.round(neg/tot*100)+'%':'—';
   document.getElementById('sComp').textContent=comp;
   const pc={};all.forEach(r=>{pc[r.platform]=(pc[r.platform]||0)+1});
   document.querySelectorAll('[id^="pc-"]').forEach(el=>{
     const p=el.id.replace('pc-','');
-    el.textContent=p==='all'?t:(pc[p]||0);
+    el.textContent=p==='all'?tot:(pc[p]||0);
   });
 }
 
@@ -399,13 +426,13 @@ function renderCharts(){
   const all=getAll();
   const pc={};all.forEach(r=>{pc[r.platform]=(pc[r.platform]||0)+1});
   const sp=Object.entries(pc).sort((a,b)=>b[1]-a[1]);const mx=sp[0]?.[1]||1;
-  document.getElementById('platBars').innerHTML=sp.length?sp.map(([p,n])=>`<div class="bar-row"><span class="bar-lbl">${p}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n/mx*100)}%;background:${PLAT_COLORS[p]||'#7a8099'}"></div></div><span class="bar-n">${n}</span></div>`).join(''):'<div style="font-size:12px;color:var(--text3)">暂无数据</div>';
+  document.getElementById('platBars').innerHTML=sp.length?sp.map(([p,n])=>`<div class="bar-row"><span class="bar-lbl">${p}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n/mx*100)}%;background:${PLAT_COLORS[p]||'#7a8099'}"></div></div><span class="bar-n">${n}</span></div>`).join(''):`<div style="font-size:12px;color:var(--text3)">${t('noData')}</div>`;
   const cc={};all.filter(r=>r.sentiment==='negative').forEach(r=>{cc[r.category]=(cc[r.category]||0)+1});
   const sc=Object.entries(cc).sort((a,b)=>b[1]-a[1]);const mc=sc[0]?.[1]||1;
-  document.getElementById('catBars').innerHTML=sc.length?sc.map(([c,n])=>`<div class="bar-row"><span class="bar-lbl">${c}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n/mc*100)}%;background:var(--red)"></div></div><span class="bar-n">${n}</span></div>`).join(''):'<div style="font-size:12px;color:var(--text3)">暂无负面</div>';
+  document.getElementById('catBars').innerHTML=sc.length?sc.map(([c,n])=>`<div class="bar-row"><span class="bar-lbl">${t('catMap')[c]||c}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n/mc*100)}%;background:var(--red)"></div></div><span class="bar-n">${n}</span></div>`).join(''):`<div style="font-size:12px;color:var(--text3)">${t('noNeg')}</div>`;
 }
 
-function getAll(){return [...manualReviews,...reviews.filter(r=>!r.manual)]}
+function getAll(){return[...manualReviews,...reviews.filter(r=>!r.manual)]}
 function getFiltered(){
   return getAll().filter(r=>{
     if(activePlat!=='all'&&r.platform!==activePlat)return false;
@@ -418,29 +445,30 @@ function getFiltered(){
 
 function renderList(){
   const f=getFiltered();
-  document.getElementById('countLbl').textContent='共 '+f.length+' 条';
-  if(!f.length){document.getElementById('rvList').innerHTML='<div class="empty">没有符合条件的评论</div>';return}
+  document.getElementById('countLbl').textContent=t('countPrefix')+' '+f.length+' '+t('countSuffix');
+  if(!f.length){document.getElementById('rvList').innerHTML=`<div class="empty">${t('noMatch')}</div>`;return}
   document.getElementById('rvList').innerHTML=f.map(r=>{
     const bc=r.sentiment==='positive'?'var(--green)':r.sentiment==='negative'?'var(--red)':'var(--text3)';
-    const badge=r.sentiment==='positive'?'<span class="badge-p">正面</span>':r.sentiment==='negative'?'<span class="badge-n">负面</span>':'<span class="badge-neu">中性</span>';
+    const badge=r.sentiment==='positive'?`<span class="badge-p">${t('badgePos')}</span>`:r.sentiment==='negative'?`<span class="badge-n">${t('badgeNeg')}</span>`:`<span class="badge-neu">${t('badgeNeu')}</span>`;
     const stars=r.rating?'<span class="stars">'+[1,2,3,4,5].map(i=>`<span style="color:${i<=r.rating?'#BA7517':'var(--text3)'}">★</span>`).join('')+'</span>':'';
-    const srcTag=r.manual?'<span class="manual-tag">手动</span>':'<span class="auto-tag">自动</span>';
+    const srcTag=r.manual?`<span class="manual-tag">${t('manualTag')}</span>`:`<span class="auto-tag">${t('autoTag')}</span>`;
+    const catDisplay = t('catMap')[r.category] || r.category;
     return`<div class="rv">
       <div class="rv-bar" style="background:${bc}"></div>
       <div>
         <div class="rv-meta">
           <span class="pill ${pillClass(r.platform)}">${r.platform}</span>
           ${r.source_name&&r.source_name!==r.platform?`<span style="font-size:11px;color:var(--text3)">${esc(r.source_name)}</span>`:''}
-          ${r.mentions_tarro?'<span class="tarro-pill">@ 食客通</span>':''}
-          ${r.is_competitor?'<span style="font-size:10px;padding:2px 7px;border-radius:99px;background:var(--amber-bg);color:var(--amber)">竞品</span>':''}
-          <span class="rv-author">${esc(r.author||'匿名')}</span>
+          ${r.mentions_tarro?`<span class="tarro-pill">${t('tarroTag')}</span>`:''}
+          ${r.is_competitor?`<span style="font-size:10px;padding:2px 7px;border-radius:99px;background:var(--amber-bg);color:var(--amber)">${t('compTag')}</span>`:''}
+          <span class="rv-author">${esc(r.author||'—')}</span>
           <span class="rv-date">${r.date}</span>
           ${srcTag}
         </div>
         <div class="rv-txt">${esc(r.text)}</div>
         <div class="rv-foot">
-          <span class="rv-cat">${r.category}</span>
-          ${r.url?`<a class="rv-url" href="${esc(r.url)}" target="_blank">↗ 原文</a>`:''}
+          <span class="rv-cat">${catDisplay}</span>
+          ${r.url?`<a class="rv-url" href="${esc(r.url)}" target="_blank">${t('origLink')}</a>`:''}
         </div>
       </div>
       <div class="rv-right">${badge}${stars}</div>
@@ -455,37 +483,38 @@ function filterPlat(p,btn){
   renderList();
 }
 document.getElementById('tabs').addEventListener('click',e=>{
-  const t=e.target.closest('.tab');if(!t)return;
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');
-  activeF=t.dataset.f;renderList();
+  const tab=e.target.closest('.tab');if(!tab)return;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));tab.classList.add('active');
+  activeF=tab.dataset.f;renderList();
 });
 document.getElementById('searchQ').addEventListener('input',e=>{searchQ=e.target.value.trim().toLowerCase();renderList()});
 
-// ── modal ─────────────────────────────────────────────────────────────────────
 function openModal(){document.getElementById('mDate').value=new Date().toISOString().slice(0,10);document.getElementById('mo').classList.add('open')}
 function closeModal(){document.getElementById('mo').classList.remove('open');document.getElementById('aiSt').textContent='';document.getElementById('mText').value='';document.getElementById('mUrl').value='';document.getElementById('mRating').value=''}
 document.getElementById('mo').addEventListener('click',e=>{if(e.target===document.getElementById('mo'))closeModal()});
 
 async function saveReview(){
   const text=document.getElementById('mText').value.trim();
-  if(!text){alert('请输入评论内容');return}
+  if(!text){alert(lang==='zh'?'请输入评论内容':'Please enter review content');return}
   const btn=document.getElementById('saveBtn'),st=document.getElementById('aiSt');
-  btn.disabled=true;st.textContent='AI 分析中…';
-  const plat=document.getElementById('mPlat').value,src=document.getElementById('mSrc').value||plat,author=document.getElementById('mAuthor').value||'匿名',date=document.getElementById('mDate').value,url=document.getElementById('mUrl').value,rating=document.getElementById('mRating').value?parseInt(document.getElementById('mRating').value):null;
+  btn.disabled=true;st.textContent=lang==='zh'?'AI 分析中…':'Analyzing…';
+  const plat=document.getElementById('mPlat').value,src=document.getElementById('mSrc').value||plat,author=document.getElementById('mAuthor').value||'—',date=document.getElementById('mDate').value,url=document.getElementById('mUrl').value,rating=document.getElementById('mRating').value?parseInt(document.getElementById('mRating').value):null;
   try{
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:`分析这条来自${plat}的评论（食客通=Tarro，为美国华人餐厅提供电话代接服务）。评论：${text}${rating?' 星级：'+rating+'星':''}\n只返回JSON：{"mentions_tarro":bool,"is_competitor":bool,"sentiment":"positive|negative|neutral","category":"好评|价格投诉|服务问题|恶意差评|功能建议|竞品提及|其他","key_issue":"10字内核心"}`}]})});
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:`Analyze this review from ${plat} about Tarro/食客通 (a phone answering service for Chinese restaurants in the US). Review: ${text}${rating?' Rating: '+rating+' stars':''}
+Return only JSON: {"mentions_tarro":bool,"is_competitor":bool,"sentiment":"positive|negative|neutral","category":"好评|价格投诉|服务问题|恶意差评|功能建议|竞品提及|其他","key_issue":"10 chars max"}`}]})});
     const data=await resp.json();
     const ai=JSON.parse((data.content||[]).map(c=>c.text||'').join('').replace(/```json|```/g,'').trim());
     st.style.color='var(--green)';
-    st.textContent='✓ '+(ai.sentiment==='positive'?'正面':ai.sentiment==='negative'?'负面':'中性')+' · '+ai.category+(ai.key_issue?' · '+ai.key_issue:'');
+    const sentLabel=ai.sentiment==='positive'?t('badgePos'):ai.sentiment==='negative'?t('badgeNeg'):t('badgeNeu');
+    st.textContent='✓ '+sentLabel+' · '+(t('catMap')[ai.category]||ai.category);
     const rv={id:'m'+Date.now(),platform:plat,source_name:src,author,date,rating,text,url,mentions_tarro:ai.mentions_tarro,is_competitor:ai.is_competitor||false,sentiment:ai.sentiment,category:ai.category,manual:true,fetched_at:new Date().toISOString()};
     manualReviews.unshift(rv);
     localStorage.setItem('tarro_manual',JSON.stringify(manualReviews));
     updateAll();
     setTimeout(()=>{closeModal();btn.disabled=false},900);
   }catch(e){
-    st.style.color='var(--amber)';st.textContent='AI 失败，简单分类…';
-    const rv={id:'m'+Date.now(),platform:plat,source_name:src,author,date,rating,text,url,mentions_tarro:tarro(text),is_competitor:competitor(text),sentiment:rating?sentiment('',rating):sentiment(text,null),category:category(text),manual:true,fetched_at:new Date().toISOString()};
+    st.style.color='var(--amber)';st.textContent=lang==='zh'?'AI 失败，简单分类…':'AI failed, simple classification…';
+    const rv={id:'m'+Date.now(),platform:plat,source_name:src,author,date,rating,text,url,mentions_tarro:tarroM(text),is_competitor:compM(text),sentiment:rating?sentiment('',rating):sentiment(text,null),category:category(text),manual:true,fetched_at:new Date().toISOString()};
     manualReviews.unshift(rv);
     localStorage.setItem('tarro_manual',JSON.stringify(manualReviews));
     updateAll();
