@@ -1,6 +1,7 @@
 """
 Tarro Review Monitor — daily scraper
 - Google search scrape (no API key needed)
+- YouTube search scrape (titles + descriptions, no API key needed)
 - Reddit public API (no key needed)
 """
 import json, os, re, time, hashlib
@@ -21,14 +22,14 @@ HEADERS = {
 }
 
 GOOGLE_QUERIES = [
-    "食客通 评价",
-    "食客通 餐厅",
-    "食客通 差评",
-    "食客通 好用",
-    "Tarro restaurant review",
-    "Tarro phone ordering chinese restaurant",
-    "wondersco tarro",
-    "食客通 tarro",
+    "食客通 评价", "食客通 餐厅", "食客通 差评", "食客通 好用",
+    "Tarro restaurant review", "Tarro phone ordering chinese restaurant",
+    "wondersco tarro", "食客通 tarro",
+]
+
+YOUTUBE_QUERIES = [
+    "食客通", "Tarro restaurant", "tarro phone ordering",
+    "中餐厅电话系统", "食客通 餐厅",
 ]
 
 REDDIT_QUERIES = [
@@ -94,7 +95,7 @@ def make_review(platform, source, author, date, text, url="", rating=None):
         "fetched_at":     datetime.now(timezone.utc).isoformat(),
     }
 
-# ── Google Search scrape ──────────────────────────────────────────────────────
+# ── Google Search ─────────────────────────────────────────────────────────────
 def fetch_google():
     results = []
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -104,34 +105,70 @@ def fetch_google():
             resp = requests.get(url, headers=HEADERS, timeout=15)
             soup = BeautifulSoup(resp.text, "lxml")
             for g in soup.select("div.g, div[data-hveid]"):
-                title_el = g.select_one("h3")
+                title_el   = g.select_one("h3")
                 snippet_el = g.select_one("div.VwiC3b, span.st, div[data-sncf]")
-                link_el = g.select_one("a[href]")
-                if not title_el:
-                    continue
+                link_el    = g.select_one("a[href]")
+                if not title_el: continue
                 title   = title_el.get_text(" ", strip=True)
                 snippet = snippet_el.get_text(" ", strip=True) if snippet_el else ""
                 link    = link_el.get("href", "") if link_el else ""
                 if link.startswith("/url?q="):
                     link = link.split("/url?q=")[1].split("&")[0]
                 text = f"{title} {snippet}".strip()
-                if len(text) < 20:
-                    continue
-                if not tarro_mentioned(text) and not competitor_mentioned(text):
-                    continue
+                if len(text) < 20: continue
+                if not tarro_mentioned(text) and not competitor_mentioned(text): continue
                 domain = re.sub(r"https?://([^/]+).*", r"\1", link) if link else "google"
-                results.append(make_review(
-                    platform="Web",
-                    source=domain,
-                    author="",
-                    date=today,
-                    text=text,
-                    url=link,
-                ))
-            time.sleep(2)  # be polite to Google
+                results.append(make_review("Web", domain, "", today, text, link))
+            time.sleep(2)
         except Exception as e:
             print(f"  [Google] Error '{q}': {e}")
-    print(f"  [Google] {len(results)} results mentioning Tarro/食客通")
+    print(f"  [Google] {len(results)} results")
+    return results
+
+# ── YouTube Search ────────────────────────────────────────────────────────────
+def fetch_youtube():
+    results = []
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    for q in YOUTUBE_QUERIES:
+        url = f"https://www.youtube.com/results?search_query={requests.utils.quote(q)}"
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=15)
+            # YouTube embeds JSON data in the page
+            match = re.search(r'var ytInitialData = ({.*?});</script>', resp.text, re.DOTALL)
+            if not match:
+                print(f"  [YouTube] No data for '{q}'")
+                continue
+            data = json.loads(match.group(1))
+            # navigate to video results
+            contents = (data.get("contents", {})
+                           .get("twoColumnSearchResultsRenderer", {})
+                           .get("primaryContents", {})
+                           .get("sectionListRenderer", {})
+                           .get("contents", []))
+            for section in contents:
+                items = (section.get("itemSectionRenderer", {})
+                                .get("contents", []))
+                for item in items:
+                    v = item.get("videoRenderer", {})
+                    if not v: continue
+                    title = "".join(r.get("text","") for r in v.get("title",{}).get("runs",[]))
+                    desc  = "".join(r.get("text","") for r in v.get("descriptionSnippet",{}).get("runs",[]))
+                    vid_id = v.get("videoId","")
+                    text = f"{title} {desc}".strip()
+                    if not text or len(text) < 10: continue
+                    if not tarro_mentioned(text) and not competitor_mentioned(text): continue
+                    results.append(make_review(
+                        platform="YouTube",
+                        source="YouTube",
+                        author=v.get("ownerText",{}).get("runs",[{}])[0].get("text",""),
+                        date=today,
+                        text=text,
+                        url=f"https://www.youtube.com/watch?v={vid_id}" if vid_id else url,
+                    ))
+            time.sleep(1.5)
+        except Exception as e:
+            print(f"  [YouTube] Error '{q}': {e}")
+    print(f"  [YouTube] {len(results)} relevant videos")
     return results
 
 # ── Reddit ────────────────────────────────────────────────────────────────────
@@ -152,8 +189,7 @@ def fetch_reddit():
                 title    = d.get("title", "")
                 selftext = d.get("selftext", "")
                 text     = f"{title} {selftext}".strip()
-                if not tarro_mentioned(text) and not competitor_mentioned(text):
-                    continue
+                if not tarro_mentioned(text) and not competitor_mentioned(text): continue
                 created = datetime.fromtimestamp(d.get("created_utc", 0), tz=timezone.utc)
                 results.append(make_review(
                     platform="Reddit",
@@ -176,11 +212,13 @@ def main():
 
     existing = load_existing()
     manual   = [r for r in existing if r.get("manual")]
-    print(f"Existing: {len(existing)} total, {len(manual)} manual entries kept\n")
+    print(f"Existing: {len(existing)} total, {len(manual)} manual kept\n")
 
     new_reviews = []
     print("→ Google Search...")
     new_reviews.extend(fetch_google())
+    print("\n→ YouTube...")
+    new_reviews.extend(fetch_youtube())
     print("\n→ Reddit...")
     new_reviews.extend(fetch_reddit())
 
@@ -197,19 +235,15 @@ def main():
         by_plat[r["platform"]] = by_plat.get(r["platform"], 0) + 1
 
     META_FILE.write_text(json.dumps({
-        "last_run":       now.isoformat(),
-        "total":          t,
-        "positive":       pos,
-        "negative":       neg,
-        "neutral":        t - pos - neg,
+        "last_run": now.isoformat(), "total": t,
+        "positive": pos, "negative": neg, "neutral": t-pos-neg,
         "mentions_tarro": men,
-        "positive_pct":   round(pos / t * 100, 1) if t else 0,
-        "negative_pct":   round(neg / t * 100, 1) if t else 0,
-        "by_platform":    by_plat,
+        "positive_pct": round(pos/t*100,1) if t else 0,
+        "negative_pct": round(neg/t*100,1) if t else 0,
+        "by_platform": by_plat,
     }, ensure_ascii=False, indent=2))
 
-    print(f"\n✓ {len(all_reviews)} total reviews saved")
-    print(f"  +{pos} positive  -{neg} negative  {men} mention Tarro")
+    print(f"\n✓ {t} total | +{pos} pos -{neg} neg | {men} mention Tarro")
     print(f"  Platforms: {by_plat}")
 
 if __name__ == "__main__":
