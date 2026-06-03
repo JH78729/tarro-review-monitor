@@ -1,10 +1,14 @@
 {
-  "last_run": "2025-04-11T14:00:00Z",
+  "last_run": "2026-06-03T19:12:14.830625+00:00",
   "total": 5,
   "positive": 2,
   "negative": 3,
   "neutral": 0,
   "mentions_tarro": 3,
   "positive_pct": 40.0,
-  "negative_pct": 60.0
+  "negative_pct": 60.0,
+  "by_platform": {
+    "小红书": 4,
+    "微信视频号": 1
+  }
 }

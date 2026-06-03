@@ -15,21 +15,6 @@
     "fetched_at": "2025-04-08T12:00:00Z"
   },
   {
-    "id": "manual:xhs:002",
-    "platform": "小红书",
-    "source_name": "Redbook K",
-    "author": "用户B",
-    "date": "2025-03-15",
-    "rating": null,
-    "text": "价格太贵了，我们小餐馆用不起",
-    "url": "",
-    "mentions_tarro": false,
-    "sentiment": "negative",
-    "category": "价格投诉",
-    "manual": true,
-    "fetched_at": "2025-03-15T09:00:00Z"
-  },
-  {
     "id": "manual:wechat:001",
     "platform": "微信视频号",
     "source_name": "微信视频号",
@@ -43,6 +28,21 @@
     "category": "服务问题",
     "manual": true,
     "fetched_at": "2025-03-20T10:00:00Z"
+  },
+  {
+    "id": "manual:xhs:002",
+    "platform": "小红书",
+    "source_name": "Redbook K",
+    "author": "用户B",
+    "date": "2025-03-15",
+    "rating": null,
+    "text": "价格太贵了，我们小餐馆用不起",
+    "url": "",
+    "mentions_tarro": false,
+    "sentiment": "negative",
+    "category": "价格投诉",
+    "manual": true,
+    "fetched_at": "2025-03-15T09:00:00Z"
   },
   {
     "id": "manual:xhs:003",
