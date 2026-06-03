@@ -9,14 +9,15 @@
     "text": "产品好用，真心推荐，食客通帮我省了很多时间！",
     "url": "",
     "mentions_tarro": true,
+    "is_competitor": false,
     "sentiment": "positive",
     "category": "好评",
-    "manual": true,
+    "manual": false,
     "fetched_at": "2025-04-08T12:00:00Z"
   },
   {
     "id": "manual:wechat:001",
-    "platform": "微信视频号",
+    "platform": "微信",
     "source_name": "微信视频号",
     "author": "餐馆老板C",
     "date": "2025-03-20",
@@ -24,9 +25,10 @@
     "text": "接线员英语口音很重，客人听不懂",
     "url": "",
     "mentions_tarro": false,
+    "is_competitor": false,
     "sentiment": "negative",
     "category": "服务问题",
-    "manual": true,
+    "manual": false,
     "fetched_at": "2025-03-20T10:00:00Z"
   },
   {
@@ -39,9 +41,10 @@
     "text": "价格太贵了，我们小餐馆用不起",
     "url": "",
     "mentions_tarro": false,
+    "is_competitor": false,
     "sentiment": "negative",
     "category": "价格投诉",
-    "manual": true,
+    "manual": false,
     "fetched_at": "2025-03-15T09:00:00Z"
   },
   {
@@ -54,9 +57,10 @@
     "text": "找人难，食客通省事，强烈推荐给华人餐厅",
     "url": "",
     "mentions_tarro": true,
+    "is_competitor": false,
     "sentiment": "positive",
     "category": "好评",
-    "manual": true,
+    "manual": false,
     "fetched_at": "2025-02-10T08:00:00Z"
   },
   {
@@ -69,9 +73,10 @@
     "text": "垃圾公司，邮件广告太多了",
     "url": "",
     "mentions_tarro": true,
+    "is_competitor": false,
     "sentiment": "negative",
     "category": "恶意差评",
-    "manual": true,
+    "manual": false,
     "fetched_at": "2025-01-25T11:00:00Z"
   }
 ]
