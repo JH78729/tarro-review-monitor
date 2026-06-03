@@ -2,528 +2,498 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="食客通社媒评论监控 — 小红书・微信・Facebook・Google・Yelp">
-<meta name="theme-color" content="#0d0f14">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>食客通 · Review Monitor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0d0f14;
-  --surface: #13161e;
-  --surface2: #1a1e28;
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.12);
-  --text: #e8eaf0;
-  --text2: #7a8099;
-  --text3: #4a5068;
-  --green: #2ecc8a;
-  --green-dim: rgba(46,204,138,0.12);
-  --red: #e05454;
-  --red-dim: rgba(224,84,84,0.12);
-  --blue: #5b8ef0;
-  --blue-dim: rgba(91,142,240,0.12);
-  --amber: #f0a030;
-  --amber-dim: rgba(240,160,48,0.12);
-  --purple: #9b72f0;
-  --r: 8px;
-  --r2: 12px;
-  --mono: 'DM Mono', monospace;
-  --sans: 'DM Sans', system-ui, sans-serif;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 14px; -webkit-font-smoothing: antialiased; }
-body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 400; line-height: 1.6; min-height: 100vh; }
+:root{--bg:#0d0f14;--s1:#13161e;--s2:#1a1e28;--s3:#222636;--border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.12);--border3:rgba(255,255,255,.2);--text:#e8eaf0;--text2:#7a8099;--text3:#3d4258;--green:#1D9E75;--green-bg:rgba(29,158,117,.1);--red:#E24B4A;--red-bg:rgba(226,75,74,.1);--blue:#378ADD;--amber:#BA7517;--amber-bg:rgba(186,117,23,.1);--r:8px;--r2:12px;--mono:'DM Mono',monospace;--sans:'DM Sans',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh}
+.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
 
-/* ── layout ── */
-.shell { max-width: 1080px; margin: 0 auto; padding: 0 24px 80px; }
-header { display: flex; align-items: center; justify-content: space-between; padding: 28px 0 32px; border-bottom: 1px solid var(--border); margin-bottom: 32px; flex-wrap: wrap; gap: 12px; }
-.logo { display: flex; align-items: center; gap: 10px; }
-.logo-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2.4s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
-.logo-text { font-size: 15px; font-weight: 500; letter-spacing: .01em; }
-.logo-sub { font-family: var(--mono); font-size: 11px; color: var(--text2); margin-top: 1px; }
-.header-right { display: flex; align-items: center; gap: 10px; }
-.last-run { font-family: var(--mono); font-size: 11px; color: var(--text3); }
-.add-btn { display: flex; align-items: center; gap: 6px; padding: 7px 14px; background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--r); font-family: var(--sans); font-size: 13px; color: var(--text); cursor: pointer; transition: border-color .15s, background .15s; }
-.add-btn:hover { background: var(--surface); border-color: rgba(255,255,255,.22); }
+/* sidebar */
+.sb{background:var(--s1);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sb-top{padding:18px 16px 14px;border-bottom:1px solid var(--border)}
+.sb-logo{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2.4s ease-in-out infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.sb-name{font-size:14px;font-weight:500}
+.sb-sub{font-size:11px;color:var(--text2);font-family:var(--mono)}
+.sb-sec{padding:12px 10px 6px}
+.sb-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;padding:0 6px;margin-bottom:6px}
+.pb{display:flex;align-items:center;gap:8px;width:100%;padding:7px 10px;border:none;background:transparent;color:var(--text2);cursor:pointer;border-radius:var(--r);font-family:var(--sans);font-size:13px;text-align:left;transition:all .15s}
+.pb:hover,.pb.active{background:var(--s2);color:var(--text)}
+.pb-icon{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+.pb-name{flex:1}
+.pb-n{font-family:var(--mono);font-size:10px;color:var(--text3);background:var(--s3);padding:1px 5px;border-radius:99px}
+.sb-div{height:1px;background:var(--border);margin:6px 10px}
+.add-btn{display:flex;align-items:center;justify-content:center;gap:6px;margin:10px;padding:9px;background:var(--green);border:none;border-radius:var(--r);color:#fff;font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;transition:opacity .15s}
+.add-btn:hover{opacity:.85}
 
-/* ── stat cards ── */
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
-@media(max-width:640px){ .stats { grid-template-columns: repeat(2,1fr); } }
-.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r2); padding: 18px 20px; }
-.stat-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
-.stat-value { font-family: var(--mono); font-size: 28px; font-weight: 500; line-height: 1; }
-.stat-sub { font-size: 11px; color: var(--text2); margin-top: 5px; }
-.v-green { color: var(--green); }
-.v-red { color: var(--red); }
-.v-blue { color: var(--blue); }
-.v-amber { color: var(--amber); }
+/* main */
+.main{padding:26px 30px 80px;overflow-y:auto;max-width:960px}
+.mh{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:12px;flex-wrap:wrap}
+.mh-left h1{font-size:19px;font-weight:500}
+.mh-sub{font-size:13px;color:var(--text2);margin-top:3px}
+.last-run{font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:5px}
+.run-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;border-radius:var(--r);border:1px solid var(--border2);background:var(--s2);color:var(--text);transition:all .15s;white-space:nowrap}
+.run-btn:hover{border-color:var(--border3)}
 
-/* ── charts row ── */
-.charts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
-@media(max-width:640px){ .charts { grid-template-columns: 1fr; } }
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r2); padding: 20px; }
-.card-title { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px; }
-.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.bar-label { font-size: 12px; color: var(--text2); min-width: 72px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 3px; transition: width .6s cubic-bezier(.4,0,.2,1); }
-.bar-count { font-family: var(--mono); font-size: 11px; color: var(--text3); min-width: 20px; text-align: right; }
-.mini-legend { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
-.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text2); }
-.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
-.donut-wrap { display: flex; align-items: center; gap: 20px; }
-svg.donut { flex-shrink: 0; }
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}
+.stat{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px}
+.stat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.stat-v{font-size:24px;font-weight:500;font-family:var(--mono);line-height:1}
+.stat-s{font-size:11px;color:var(--text2);margin-top:4px}
 
-/* ── tabs / filters ── */
-.controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
-.tabs { display: flex; gap: 4px; }
-.tab { padding: 6px 14px; font-size: 12px; border-radius: 99px; cursor: pointer; border: 1px solid transparent; color: var(--text2); background: transparent; font-family: var(--sans); transition: all .15s; }
-.tab:hover { color: var(--text); }
-.tab.active { background: var(--surface2); border-color: var(--border2); color: var(--text); }
-.right-controls { display: flex; gap: 8px; flex-wrap: wrap; }
-select.filter-sel { padding: 6px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 12px; cursor: pointer; }
-select.filter-sel:focus { outline: none; border-color: var(--border2); }
-.search-wrap { position: relative; }
-.search-wrap input { padding: 6px 10px 6px 30px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 12px; width: 180px; }
-.search-wrap input::placeholder { color: var(--text3); }
-.search-wrap input:focus { outline: none; border-color: var(--border2); }
-.search-icon { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 13px; pointer-events: none; }
+/* source panel */
+.sp{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:22px}
+.sp-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;cursor:pointer;user-select:none}
+.sp-head:hover .sp-toggle{color:var(--text)}
+.sp-title{font-size:13px;font-weight:500}
+.sp-hint{font-size:11px;color:var(--text2);margin-top:2px}
+.sp-toggle{font-size:11px;color:var(--text3);border:1px solid var(--border);border-radius:99px;padding:3px 10px;transition:color .15s}
+.sp-body{padding:14px 16px;border-top:1px solid var(--border);display:none}
+.sp-body.open{display:block}
+.sp-section{margin-bottom:14px}
+.sp-section-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.kw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:7px}
+.kw{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:9px 11px;display:flex;align-items:center;justify-content:space-between;gap:8px;transition:border-color .15s}
+.kw:hover{border-color:var(--border2)}
+.kw-p{font-size:10px;color:var(--text3);margin-bottom:2px;font-family:var(--mono)}
+.kw-t{font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kw-a{display:flex;align-items:center;gap:3px;padding:3px 8px;font-size:11px;background:transparent;border:1px solid var(--border2);border-radius:99px;color:var(--text2);cursor:pointer;text-decoration:none;transition:all .15s;flex-shrink:0;white-space:nowrap}
+.kw-a:hover{background:var(--s3);color:var(--text);border-color:var(--border3)}
 
-/* ── review list ── */
-.review-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r2); padding: 16px 18px; margin-bottom: 10px; display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: start; transition: border-color .15s; }
-.review-item:hover { border-color: var(--border2); }
-.review-sentiment { width: 4px; border-radius: 2px; align-self: stretch; flex-shrink: 0; }
-.s-positive { background: var(--green); }
-.s-negative { background: var(--red); }
-.s-neutral { background: var(--text3); }
-.review-body { min-width: 0; }
-.review-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
-.platform-pill { font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
-.pill-xhs { background: rgba(255,80,80,.12); color: #ff8080; }
-.pill-wechat { background: rgba(80,200,100,.12); color: #60d070; }
-.pill-tiktok { background: rgba(200,200,220,.1); color: var(--text2); }
-.pill-fb { background: rgba(91,142,240,.12); color: var(--blue); }
-.pill-google { background: rgba(240,160,48,.12); color: var(--amber); }
-.pill-yelp { background: rgba(224,84,84,.12); color: var(--red); }
-.tarro-badge { font-size: 10px; padding: 2px 7px; border-radius: 99px; background: var(--blue-dim); color: var(--blue); }
-.review-author { font-size: 12px; color: var(--text2); }
-.review-date { font-family: var(--mono); font-size: 11px; color: var(--text3); }
-.review-text { font-size: 13px; line-height: 1.65; color: var(--text); }
-.review-category { font-size: 10px; padding: 2px 7px; border-radius: 99px; border: 1px solid var(--border); color: var(--text3); margin-top: 6px; display: inline-block; }
-.review-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
-.stars { display: flex; gap: 2px; }
-.star { font-size: 11px; }
-.badge-pos { font-size: 10px; padding: 3px 8px; border-radius: 99px; background: var(--green-dim); color: var(--green); font-weight: 500; }
-.badge-neg { font-size: 10px; padding: 3px 8px; border-radius: 99px; background: var(--red-dim); color: var(--red); font-weight: 500; }
-.badge-neu { font-size: 10px; padding: 3px 8px; border-radius: 99px; background: rgba(255,255,255,.06); color: var(--text3); font-weight: 500; }
-.manual-tag { font-family: var(--mono); font-size: 10px; color: var(--text3); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; }
+/* charts */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:15px 17px}
+.card-ttl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.bar-lbl{font-size:12px;color:var(--text2);min-width:76px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{flex:1;height:4px;background:var(--s3);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px;transition:width .5s}
+.bar-n{font-family:var(--mono);font-size:11px;color:var(--text3);min-width:16px;text-align:right}
 
-.empty { text-align: center; padding: 48px; color: var(--text3); font-size: 13px; }
-.count-label { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-bottom: 12px; }
+/* controls */
+.ctrl{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.tabs{display:flex;gap:3px}
+.tab{padding:5px 12px;font-size:12px;border-radius:99px;cursor:pointer;border:1px solid transparent;color:var(--text2);background:transparent;font-family:var(--sans);transition:all .15s}
+.tab:hover{color:var(--text)}
+.tab.active{background:var(--s2);border-color:var(--border2);color:var(--text);font-weight:500}
+.srch{position:relative}
+.srch input{padding:5px 9px 5px 25px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-size:12px;width:145px;font-family:var(--sans)}
+.srch input::placeholder{color:var(--text3)}
+.srch-ico{position:absolute;left:7px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:12px;pointer-events:none}
+.count-lbl{font-size:11px;color:var(--text3);font-family:var(--mono);margin-bottom:8px}
 
-/* ── modal ── */
-.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.65); z-index: 100; align-items: center; justify-content: center; padding: 24px; }
-.modal-bg.open { display: flex; }
-.modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 16px; width: 100%; max-width: 560px; padding: 28px; }
-.modal h2 { font-size: 15px; font-weight: 500; margin-bottom: 20px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
-@media(max-width:480px){ .form-row { grid-template-columns: 1fr; } }
-.form-field { display: flex; flex-direction: column; gap: 5px; }
-.form-field label { font-size: 11px; color: var(--text2); }
-.form-field select, .form-field input, .form-field textarea { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r); color: var(--text); font-family: var(--sans); font-size: 13px; padding: 8px 10px; }
-.form-field select:focus, .form-field input:focus, .form-field textarea:focus { outline: none; border-color: var(--border2); }
-.form-field textarea { min-height: 80px; resize: vertical; }
-.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
-.btn-cancel { padding: 8px 18px; background: transparent; border: 1px solid var(--border); border-radius: var(--r); color: var(--text2); font-family: var(--sans); font-size: 13px; cursor: pointer; }
-.btn-cancel:hover { border-color: var(--border2); color: var(--text); }
-.btn-save { padding: 8px 18px; background: var(--green); border: none; border-radius: var(--r); color: #0d1a12; font-family: var(--sans); font-size: 13px; font-weight: 500; cursor: pointer; }
-.btn-save:hover { opacity: .88; }
-.btn-save:disabled { opacity: .4; cursor: not-allowed; }
-.ai-status { font-size: 12px; color: var(--text2); margin-top: 8px; min-height: 18px; }
+/* review items */
+.rv{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:13px 15px;margin-bottom:8px;display:grid;grid-template-columns:3px 1fr auto;gap:11px;align-items:start;transition:border-color .15s;animation:fi .2s ease}
+@keyframes fi{from{opacity:0;transform:translateY(3px)}to{opacity:1}}
+.rv:hover{border-color:var(--border2)}
+.rv-bar{border-radius:2px;align-self:stretch}
+.rv-meta{display:flex;align-items:center;gap:5px;margin-bottom:5px;flex-wrap:wrap}
+.pill{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:500;white-space:nowrap}
+.pill-xhs{background:rgba(226,75,74,.15);color:#ff8080}
+.pill-wechat{background:rgba(29,158,117,.15);color:#4ed8a0}
+.pill-douyin{background:rgba(200,200,220,.08);color:var(--text2)}
+.pill-zhihu{background:rgba(55,138,221,.15);color:#6ab0f5}
+.pill-reddit{background:rgba(186,117,23,.15);color:#e0a040}
+.pill-yt{background:rgba(226,75,74,.15);color:#ff8080}
+.pill-fb{background:rgba(55,138,221,.12);color:#5b8ef0}
+.pill-ig{background:rgba(212,83,126,.15);color:#e080c8}
+.pill-tw{background:rgba(29,155,240,.15);color:#5bc4f5}
+.pill-yelp{background:rgba(226,75,74,.15);color:#ff8080}
+.pill-web{background:rgba(127,119,221,.15);color:#a89ff5}
+.tarro-pill{background:rgba(55,138,221,.12);color:var(--blue);font-size:10px;padding:2px 7px;border-radius:99px}
+.auto-tag{font-size:10px;color:var(--green);border:1px solid rgba(29,158,117,.3);border-radius:4px;padding:1px 5px;font-family:var(--mono)}
+.manual-tag{font-size:10px;color:var(--text3);border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-family:var(--mono)}
+.rv-author{font-size:12px;color:var(--text2)}
+.rv-date{font-size:11px;color:var(--text3);font-family:var(--mono)}
+.rv-txt{font-size:13px;line-height:1.65;color:var(--text)}
+.rv-foot{display:flex;align-items:center;gap:7px;margin-top:6px;flex-wrap:wrap}
+.rv-cat{font-size:10px;padding:2px 7px;border-radius:99px;border:1px solid var(--border);color:var(--text3)}
+.rv-url{font-size:11px;color:var(--text2);display:flex;align-items:center;gap:3px;text-decoration:none;transition:color .15s}
+.rv-url:hover{color:var(--text)}
+.rv-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.badge-p{font-size:10px;padding:3px 8px;border-radius:99px;background:var(--green-bg);color:var(--green);font-weight:500}
+.badge-n{font-size:10px;padding:3px 8px;border-radius:99px;background:var(--red-bg);color:var(--red);font-weight:500}
+.badge-neu{font-size:10px;padding:3px 8px;border-radius:99px;background:rgba(255,255,255,.04);color:var(--text3);font-weight:500}
+.stars{font-size:11px}
+.empty{text-align:center;padding:44px;color:var(--text3);font-size:13px}
 
-/* ── footer ── */
-footer { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 40px; font-family: var(--mono); font-size: 11px; color: var(--text3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+/* modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--s1);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:520px;padding:24px;max-height:90vh;overflow-y:auto}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal h2{font-size:15px;font-weight:500}
+.mx{background:transparent;border:none;color:var(--text2);cursor:pointer;font-size:18px;padding:2px 6px;border-radius:4px;line-height:1}
+.mx:hover{color:var(--text);background:var(--s2)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:11px}
+.ff{display:flex;flex-direction:column;gap:4px}
+.ff label{font-size:11px;color:var(--text2)}
+.ff select,.ff input,.ff textarea{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-size:13px;padding:7px 9px;font-family:var(--sans);width:100%}
+.ff select:focus,.ff input:focus,.ff textarea:focus{outline:none;border-color:var(--border3)}
+.ff textarea{min-height:70px;resize:vertical}
+.ai-st{font-size:12px;margin-top:5px;min-height:16px;color:var(--text2)}
+.mact{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+.btn-c{padding:7px 16px;background:transparent;border:1px solid var(--border2);border-radius:var(--r);color:var(--text2);font-size:13px;cursor:pointer;font-family:var(--sans)}
+.btn-c:hover{border-color:var(--border3);color:var(--text)}
+.btn-s{padding:7px 16px;background:var(--green);border:none;border-radius:var(--r);color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans)}
+.btn-s:hover{opacity:.88}
+.btn-s:disabled{opacity:.4;cursor:not-allowed}
+.notice{background:var(--amber-bg);border:1px solid rgba(186,117,23,.25);border-radius:var(--r);padding:10px 13px;margin-bottom:18px;font-size:12px;color:#d4a040;line-height:1.6}
+footer{border-top:1px solid var(--border);padding-top:14px;margin-top:28px;font-family:var(--mono);font-size:11px;color:var(--text3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.spin{animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:720px){.app{grid-template-columns:1fr}.sb{position:static;height:auto}.stats{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="shell">
+<div class="app">
 
-  <header>
-    <div class="logo">
-      <div class="logo-dot" id="statusDot"></div>
-      <div>
-        <div class="logo-text">食客通 · Review Monitor</div>
-        <div class="logo-sub">小红书 · 微信视频号 · Facebook · Google · Yelp</div>
-      </div>
-    </div>
-    <div class="header-right">
-      <span class="last-run" id="lastRun">loading…</span>
-      <button class="add-btn" onclick="openModal()">+ 手动录入</button>
-    </div>
-  </header>
+<aside class="sb">
+  <div class="sb-top">
+    <div class="sb-logo"><div class="dot"></div><span class="sb-name">食客通 · Review Monitor</span></div>
+    <div class="sb-sub">Brand Listening Dashboard</div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">中文平台</div>
+    <button class="pb active" onclick="filterPlat('all',this)"><span class="pb-icon">🌐</span><span class="pb-name">全部</span><span class="pb-n" id="pc-all">0</span></button>
+    <button class="pb" onclick="filterPlat('小红书',this)"><span class="pb-icon">📕</span><span class="pb-name">小红书</span><span class="pb-n" id="pc-小红书">0</span></button>
+    <button class="pb" onclick="filterPlat('微信',this)"><span class="pb-icon">💬</span><span class="pb-name">微信</span><span class="pb-n" id="pc-微信">0</span></button>
+    <button class="pb" onclick="filterPlat('抖音',this)"><span class="pb-icon">🎵</span><span class="pb-name">抖音</span><span class="pb-n" id="pc-抖音">0</span></button>
+    <button class="pb" onclick="filterPlat('知乎',this)"><span class="pb-icon">📚</span><span class="pb-name">知乎</span><span class="pb-n" id="pc-知乎">0</span></button>
+  </div>
+  <div class="sb-div"></div>
+  <div class="sb-sec">
+    <div class="sb-lbl">英文平台（自动抓）</div>
+    <button class="pb" onclick="filterPlat('Reddit',this)"><span class="pb-icon">🤖</span><span class="pb-name">Reddit</span><span class="pb-n" id="pc-Reddit">0</span></button>
+    <button class="pb" onclick="filterPlat('Web',this)"><span class="pb-icon">🌍</span><span class="pb-name">Google 全网</span><span class="pb-n" id="pc-Web">0</span></button>
+    <button class="pb" onclick="filterPlat('YouTube',this)"><span class="pb-icon">📺</span><span class="pb-name">YouTube</span><span class="pb-n" id="pc-YouTube">0</span></button>
+    <button class="pb" onclick="filterPlat('Facebook',this)"><span class="pb-icon">📘</span><span class="pb-name">Facebook</span><span class="pb-n" id="pc-Facebook">0</span></button>
+    <button class="pb" onclick="filterPlat('Yelp',this)"><span class="pb-icon">⭐</span><span class="pb-name">Yelp / Google</span><span class="pb-n" id="pc-Yelp">0</span></button>
+  </div>
+  <div class="sb-div"></div>
+  <button class="add-btn" onclick="openModal()">+ 手动录入评论</button>
+</aside>
 
-  <!-- stat cards -->
+<main class="main">
+  <div class="mh">
+    <div class="mh-left">
+      <h1>品牌评论监控</h1>
+      <div class="mh-sub">Reddit + Google 自动抓取 · 中文平台手动录入</div>
+      <div class="last-run" id="lastRun">加载中…</div>
+    </div>
+  </div>
+
   <div class="stats">
-    <div class="stat">
-      <div class="stat-label">总评论</div>
-      <div class="stat-value" id="sTotal">—</div>
-      <div class="stat-sub" id="sTotalSub">涉及食客通</div>
+    <div class="stat"><div class="stat-l">总条数</div><div class="stat-v" id="sTotal">—</div><div class="stat-s" id="sTarro">提及食客通 —</div></div>
+    <div class="stat"><div class="stat-l">正面</div><div class="stat-v" id="sPos" style="color:var(--green)">—</div><div class="stat-s" id="sPosPct">—</div></div>
+    <div class="stat"><div class="stat-l">负面</div><div class="stat-v" id="sNeg" style="color:var(--red)">—</div><div class="stat-s" id="sNegPct">—</div></div>
+    <div class="stat"><div class="stat-l">竞品提及</div><div class="stat-v" id="sComp" style="color:var(--amber)">—</div><div class="stat-s">sales leads</div></div>
+  </div>
+
+  <!-- search links -->
+  <div class="sp">
+    <div class="sp-head" onclick="toggleSP()">
+      <div><div class="sp-title">🔍 搜索链接中心（中文平台）</div><div class="sp-hint">手动搜索 → 看到内容 → 点「手动录入」填入</div></div>
+      <span class="sp-toggle" id="spToggle">展开</span>
     </div>
-    <div class="stat">
-      <div class="stat-label">正面 Positive</div>
-      <div class="stat-value v-green" id="sPos">—</div>
-      <div class="stat-sub" id="sPosPct">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">负面 Negative</div>
-      <div class="stat-value v-red" id="sNeg">—</div>
-      <div class="stat-sub" id="sNegPct">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">提及食客通</div>
-      <div class="stat-value v-blue" id="sMention">—</div>
-      <div class="stat-sub">所有来源</div>
+    <div class="sp-body" id="spBody">
+      <div class="sp-section">
+        <div class="sp-section-lbl">小红书</div>
+        <div class="kw-grid" id="kw-xhs"></div>
+      </div>
+      <div class="sp-section">
+        <div class="sp-section-lbl">微信公众号</div>
+        <div class="kw-grid" id="kw-wx"></div>
+      </div>
+      <div class="sp-section">
+        <div class="sp-section-lbl">抖音 / 知乎</div>
+        <div class="kw-grid" id="kw-other"></div>
+      </div>
+      <div class="sp-section">
+        <div class="sp-section-lbl">YouTube / Facebook / Twitter（需登录）</div>
+        <div class="kw-grid" id="kw-en"></div>
+      </div>
     </div>
   </div>
 
   <!-- charts -->
   <div class="charts">
-    <div class="card">
-      <div class="card-title">按平台分布</div>
-      <div id="platformBars"></div>
-    </div>
-    <div class="card">
-      <div class="card-title">负面评论类别</div>
-      <div id="categoryBars"></div>
-    </div>
+    <div class="card"><div class="card-ttl">来源分布</div><div id="platBars"><div style="font-size:12px;color:var(--text3)">暂无数据</div></div></div>
+    <div class="card"><div class="card-ttl">负面类别</div><div id="catBars"><div style="font-size:12px;color:var(--text3)">暂无负面</div></div></div>
   </div>
 
-  <!-- review list -->
-  <div class="controls">
-    <div class="tabs">
-      <button class="tab active" data-filter="all">全部</button>
-      <button class="tab" data-filter="positive">正面</button>
-      <button class="tab" data-filter="negative">负面</button>
-      <button class="tab" data-filter="neutral">中性</button>
-      <button class="tab" data-filter="mention">提及品牌</button>
+  <!-- list -->
+  <div class="ctrl">
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-f="all">全部</button>
+      <button class="tab" data-f="positive">正面</button>
+      <button class="tab" data-f="negative">负面</button>
+      <button class="tab" data-f="neutral">中性</button>
+      <button class="tab" data-f="mention">提及品牌</button>
     </div>
-    <div class="right-controls">
-      <select class="filter-sel" id="platformFilter">
-        <option value="all">所有平台</option>
-        <option value="小红书">小红书</option>
-        <option value="微信视频号">微信视频号</option>
-        <option value="抖音">抖音</option>
-        <option value="Facebook">Facebook</option>
-        <option value="Instagram">Instagram</option>
-        <option value="Google Reviews">Google Reviews</option>
-        <option value="Yelp">Yelp</option>
-      </select>
-      <div class="search-wrap">
-        <span class="search-icon">⌕</span>
-        <input type="text" id="searchInput" placeholder="搜索关键词…">
-      </div>
-    </div>
+    <div class="srch"><span class="srch-ico">⌕</span><input type="text" id="searchQ" placeholder="搜索关键词…"></div>
   </div>
-
-  <div class="count-label" id="countLabel"></div>
-  <div id="reviewList"></div>
+  <div class="count-lbl" id="countLbl"></div>
+  <div id="rvList"><div class="empty">加载中…</div></div>
 
   <footer>
-    <span>食客通 Tarro · Social Review Monitor</span>
-    <span>自动抓取: Google Reviews · Yelp · 每日 09:00 PST | 手动录入: 小红书 · 微信 · Facebook</span>
+    <span>食客通 Tarro · Review Monitor</span>
+    <span>Reddit + Google 自动 · 中文平台手动录入 · 每日 09:00 PST 更新</span>
   </footer>
+</main>
 </div>
 
-<!-- add review modal -->
-<div class="modal-bg" id="modalBg">
+<!-- modal -->
+<div class="modal-overlay" id="mo">
   <div class="modal">
-    <h2>手动录入评论</h2>
-    <div class="form-row">
-      <div class="form-field">
-        <label>平台</label>
-        <select id="mPlatform">
-          <option>小红书</option>
-          <option>微信视频号</option>
-          <option>抖音</option>
-          <option>Facebook</option>
-          <option>Instagram</option>
-        </select>
+    <div class="modal-head"><h2>手动录入评论</h2><button class="mx" onclick="closeModal()">✕</button></div>
+    <div class="frow">
+      <div class="ff"><label>平台</label>
+        <select id="mPlat"><option>小红书</option><option>微信</option><option>抖音</option><option>知乎</option><option>YouTube</option><option>Facebook</option><option>Instagram</option><option>Twitter</option><option>Yelp</option><option>Google</option></select>
       </div>
-      <div class="form-field">
-        <label>账号/来源名称</label>
-        <input type="text" id="mSource" placeholder="如 Redbook Official">
+      <div class="ff"><label>账号/来源</label><input type="text" id="mSrc" placeholder="如 小红书官号"></div>
+    </div>
+    <div class="frow">
+      <div class="ff"><label>用户名</label><input type="text" id="mAuthor" placeholder="评论者"></div>
+      <div class="ff"><label>日期</label><input type="date" id="mDate"></div>
+    </div>
+    <div class="ff" style="margin-bottom:10px"><label>评论内容 <span style="color:var(--text3);font-weight:400">（从平台复制粘贴）</span></label>
+      <textarea id="mText" placeholder="粘贴评论原文，中英文均可…"></textarea>
+    </div>
+    <div class="frow">
+      <div class="ff"><label>原文链接（可选）</label><input type="text" id="mUrl" placeholder="https://..."></div>
+      <div class="ff"><label>星级（可选）</label>
+        <select id="mRating"><option value="">无</option><option value="5">⭐⭐⭐⭐⭐ 5星</option><option value="4">⭐⭐⭐⭐ 4星</option><option value="3">⭐⭐⭐ 3星</option><option value="2">⭐⭐ 2星</option><option value="1">⭐ 1星</option></select>
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-field">
-        <label>用户名</label>
-        <input type="text" id="mAuthor" placeholder="评论者">
-      </div>
-      <div class="form-field">
-        <label>日期</label>
-        <input type="date" id="mDate">
-      </div>
-    </div>
-    <div class="form-field" style="margin-bottom:14px">
-      <label>评论内容</label>
-      <textarea id="mText" placeholder="粘贴评论原文（支持中英文）"></textarea>
-    </div>
-    <div class="ai-status" id="aiStatus"></div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeModal()">取消</button>
-      <button class="btn-save" id="saveBtn" onclick="saveReview()">AI 分析 + 保存</button>
+    <div class="ai-st" id="aiSt"></div>
+    <div class="mact">
+      <button class="btn-c" onclick="closeModal()">取消</button>
+      <button class="btn-s" id="saveBtn" onclick="saveReview()">✦ AI 分析 + 保存</button>
     </div>
   </div>
 </div>
 
 <script>
-// ── state ────────────────────────────────────────────────────────────────────
-let allReviews = [];
-let activeFilter = 'all';
-let activePlatform = 'all';
-let searchQuery = '';
+// ── search links ──────────────────────────────────────────────────────────────
+const LINKS = {
+  'kw-xhs': [
+    {plat:'小红书', kw:'食客通', url:'https://www.xiaohongshu.com/search_result?keyword=%E9%A3%9F%E5%AE%A2%E9%80%9A'},
+    {plat:'小红书', kw:'Tarro', url:'https://www.xiaohongshu.com/search_result?keyword=Tarro'},
+    {plat:'小红书', kw:'中餐厅电话', url:'https://www.xiaohongshu.com/search_result?keyword=%E4%B8%AD%E9%A4%90%E5%8E%85%E7%94%B5%E8%AF%9D'},
+    {plat:'小红书', kw:'食客通 差评', url:'https://www.xiaohongshu.com/search_result?keyword=%E9%A3%9F%E5%AE%A2%E9%80%9A+%E5%B7%AE%E8%AF%84'},
+    {plat:'小红书', kw:'餐厅接线服务', url:'https://www.xiaohongshu.com/search_result?keyword=%E9%A4%90%E5%8E%85%E6%8E%A5%E7%BA%BF%E6%9C%8D%E5%8A%A1'},
+  ],
+  'kw-wx': [
+    {plat:'微信', kw:'食客通', url:'https://weixin.sogou.com/weixin?type=2&query=%E9%A3%9F%E5%AE%A2%E9%80%9A'},
+    {plat:'微信', kw:'Tarro餐厅', url:'https://weixin.sogou.com/weixin?type=2&query=Tarro%E9%A4%90%E5%8E%85'},
+    {plat:'微信', kw:'食客通 差评', url:'https://weixin.sogou.com/weixin?type=2&query=%E9%A3%9F%E5%AE%A2%E9%80%9A+%E5%B7%AE%E8%AF%84'},
+    {plat:'微信', kw:'中餐厅电话系统', url:'https://weixin.sogou.com/weixin?type=2&query=%E4%B8%AD%E9%A4%90%E5%8E%85%E7%94%B5%E8%AF%9D%E7%B3%BB%E7%BB%9F'},
+  ],
+  'kw-other': [
+    {plat:'抖音', kw:'食客通', url:'https://www.douyin.com/search/%E9%A3%9F%E5%AE%A2%E9%80%9A'},
+    {plat:'抖音', kw:'Tarro', url:'https://www.douyin.com/search/Tarro'},
+    {plat:'抖音', kw:'中餐厅电话', url:'https://www.douyin.com/search/%E4%B8%AD%E9%A4%90%E5%8E%85%E7%94%B5%E8%AF%9D'},
+    {plat:'知乎', kw:'食客通', url:'https://www.zhihu.com/search?type=content&q=%E9%A3%9F%E5%AE%A2%E9%80%9A'},
+    {plat:'知乎', kw:'食客通 差评', url:'https://www.zhihu.com/search?type=content&q=%E9%A3%9F%E5%AE%A2%E9%80%9A+%E5%B7%AE%E8%AF%84'},
+    {plat:'知乎', kw:'外卖电话接听', url:'https://www.zhihu.com/search?type=content&q=%E5%A4%96%E5%8D%96%E7%94%B5%E8%AF%9D%E6%8E%A5%E5%90%AC'},
+  ],
+  'kw-en': [
+    {plat:'YouTube', kw:'食客通', url:'https://www.youtube.com/results?search_query=%E9%A3%9F%E5%AE%A2%E9%80%9A'},
+    {plat:'YouTube', kw:'Tarro restaurant', url:'https://www.youtube.com/results?search_query=Tarro+restaurant'},
+    {plat:'YouTube', kw:'Chinese takeout phone', url:'https://www.youtube.com/results?search_query=chinese+takeout+phone+ordering'},
+    {plat:'Facebook', kw:'食客通', url:'https://www.facebook.com/search/top?q=%E9%A3%9F%E5%AE%A2%E9%80%9A'},
+    {plat:'Facebook', kw:'Tarro restaurant', url:'https://www.facebook.com/search/top?q=Tarro+restaurant'},
+    {plat:'Twitter', kw:'食客通', url:'https://twitter.com/search?q=%E9%A3%9F%E5%AE%A2%E9%80%9A&f=live'},
+    {plat:'Twitter', kw:'Tarro restaurant', url:'https://twitter.com/search?q=Tarro+restaurant&f=live'},
+  ]
+};
 
-// ── init ─────────────────────────────────────────────────────────────────────
-async function init() {
-  await Promise.all([loadMeta(), loadReviews()]);
-  bindEvents();
-}
-
-async function loadMeta() {
-  try {
-    const r = await fetch('data/meta.json?t=' + Date.now());
-    const m = await r.json();
-    document.getElementById('lastRun').textContent =
-      '上次更新 ' + m.last_run.slice(0,10);
-    document.getElementById('sTotal').textContent = m.total;
-    document.getElementById('sTotalSub').textContent = `其中提及食客通 ${m.mentions_tarro} 条`;
-    document.getElementById('sPos').textContent = m.positive;
-    document.getElementById('sPosPct').textContent = `占 ${m.positive_pct}%`;
-    document.getElementById('sNeg').textContent = m.negative;
-    document.getElementById('sNegPct').textContent = `占 ${m.negative_pct}%`;
-    document.getElementById('sMention').textContent = m.mentions_tarro;
-  } catch(e) { console.warn('meta load failed', e); }
-}
-
-async function loadReviews() {
-  try {
-    const r = await fetch('data/reviews.json?t=' + Date.now());
-    allReviews = await r.json();
-    renderCharts();
-    renderList();
-  } catch(e) {
-    document.getElementById('reviewList').innerHTML =
-      '<div class="empty">数据加载失败，请刷新重试。</div>';
-  }
-}
-
-// ── charts ────────────────────────────────────────────────────────────────────
-function renderCharts() {
-  // platform bars
-  const platCounts = {};
-  allReviews.forEach(r => { platCounts[r.platform] = (platCounts[r.platform]||0)+1; });
-  const sortedPlat = Object.entries(platCounts).sort((a,b)=>b[1]-a[1]);
-  const maxPlat = sortedPlat[0]?.[1] || 1;
-  const platColors = { '小红书':'#e05454','微信视频号':'#2ecc8a','抖音':'#7a8099','Facebook':'#5b8ef0','Instagram':'#e080c8','Google Reviews':'#f0a030','Yelp':'#e05454' };
-  document.getElementById('platformBars').innerHTML = sortedPlat.map(([plat,cnt]) =>
-    `<div class="bar-row">
-      <span class="bar-label">${plat}</span>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxPlat*100)}%;background:${platColors[plat]||'#7a8099'}"></div></div>
-      <span class="bar-count">${cnt}</span>
+Object.entries(LINKS).forEach(([id,links])=>{
+  document.getElementById(id).innerHTML=links.map(l=>`
+    <div class="kw">
+      <div><div class="kw-p">${l.plat}</div><div class="kw-t">${l.kw}</div></div>
+      <a class="kw-a" href="${l.url}" target="_blank">打开 ↗</a>
     </div>`).join('');
+});
 
-  // category bars (negatives only)
-  const catCounts = {};
-  allReviews.filter(r=>r.sentiment==='negative').forEach(r => {
-    catCounts[r.category] = (catCounts[r.category]||0)+1;
-  });
-  const sortedCat = Object.entries(catCounts).sort((a,b)=>b[1]-a[1]);
-  const maxCat = sortedCat[0]?.[1] || 1;
-  document.getElementById('categoryBars').innerHTML = sortedCat.length
-    ? sortedCat.map(([cat,cnt]) =>
-        `<div class="bar-row">
-          <span class="bar-label">${cat}</span>
-          <div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/maxCat*100)}%;background:var(--red)"></div></div>
-          <span class="bar-count">${cnt}</span>
-        </div>`).join('')
-    : '<div style="color:var(--text3);font-size:13px;padding:8px 0">暂无负面评论</div>';
+let spOpen=false;
+function toggleSP(){
+  spOpen=!spOpen;
+  document.getElementById('spBody').classList.toggle('open',spOpen);
+  document.getElementById('spToggle').textContent=spOpen?'收起':'展开';
 }
 
-// ── list ──────────────────────────────────────────────────────────────────────
-function getFiltered() {
-  return allReviews.filter(r => {
-    if (activeFilter === 'mention' && !r.mentions_tarro) return false;
-    if (activeFilter !== 'all' && activeFilter !== 'mention' && r.sentiment !== activeFilter) return false;
-    if (activePlatform !== 'all' && r.platform !== activePlatform) return false;
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      if (!r.text.toLowerCase().includes(q) && !r.author.toLowerCase().includes(q) && !r.category.toLowerCase().includes(q)) return false;
-    }
+// ── state ─────────────────────────────────────────────────────────────────────
+let reviews=[];
+let manualReviews=JSON.parse(localStorage.getItem('tarro_manual')||'[]');
+let activeF='all', activePlat='all', searchQ='';
+
+const PLAT_COLORS={小红书:'#E24B4A',微信:'#1D9E75',抖音:'#7a8099',知乎:'#378ADD',Reddit:'#BA7517',Web:'#7F77DD',YouTube:'#E24B4A',Facebook:'#378ADD',Instagram:'#D4537E',Twitter:'#29B6F6',Yelp:'#E24B4A',Google:'#BA7517'};
+function pillClass(p){return{小红书:'pill-xhs',微信:'pill-wechat',抖音:'pill-douyin',知乎:'pill-zhihu',Reddit:'pill-reddit',Web:'pill-web',YouTube:'pill-yt',Facebook:'pill-fb',Instagram:'pill-ig',Twitter:'pill-tw',Yelp:'pill-yelp',Google:'pill-yelp'}[p]||'pill-web'}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function tarro(t){return/食客通|tarro|wondersco/i.test(t)}
+function competitor(t){return/otter|popmenu|toast|square|clover|revel|aloha|doordash|ubereats|grubhub/i.test(t)}
+function sentiment(t,r){
+  if(r)return r>=4?'positive':r<=2?'negative':'neutral';
+  const p=(t.match(/好|棒|赞|推荐|helpful|great|love|excellent|amazing/gi)||[]).length;
+  const n=(t.match(/差|烂|垃圾|贵|骗|口音|bad|terrible|awful|scam|rude|worst/gi)||[]).length;
+  return p>n?'positive':n>p?'negative':'neutral';
+}
+function category(t){
+  if(/价格|贵|price|expensive/i.test(t))return'价格投诉';
+  if(/口音|accent|接线|hold|wait/i.test(t))return'服务问题';
+  if(/垃圾|骗|spam|scam|fraud/i.test(t))return'恶意差评';
+  if(/功能|feature|建议|suggest/i.test(t))return'功能建议';
+  if(/推荐|好用|recommend|love|great/i.test(t))return'好评';
+  if(competitor(t))return'竞品提及';
+  return'其他';
+}
+
+// ── load data ─────────────────────────────────────────────────────────────────
+async function loadData(){
+  try{
+    const r=await fetch('data/reviews.json?t='+Date.now());
+    const auto=await r.json();
+    reviews=[...manualReviews,...auto];
+    // last run from meta
+    try{
+      const m=await fetch('data/meta.json?t='+Date.now());
+      const meta=await m.json();
+      document.getElementById('lastRun').textContent='自动抓取: '+meta.last_run.slice(0,10)+' · Reddit+Google 每日更新';
+    }catch(e){}
+  }catch(e){
+    reviews=[...manualReviews];
+    document.getElementById('lastRun').textContent='数据文件未找到 — 请先运行 GitHub Actions';
+  }
+  updateAll();
+}
+
+function updateAll(){updateStats();renderCharts();renderList()}
+
+function updateStats(){
+  const all=getAll();
+  const t=all.length,pos=all.filter(r=>r.sentiment==='positive').length,neg=all.filter(r=>r.sentiment==='negative').length,men=all.filter(r=>r.mentions_tarro).length,comp=all.filter(r=>r.is_competitor).length;
+  document.getElementById('sTotal').textContent=t;
+  document.getElementById('sTarro').textContent='提及食客通 '+men;
+  document.getElementById('sPos').textContent=pos;
+  document.getElementById('sPosPct').textContent=t?Math.round(pos/t*100)+'%':'—';
+  document.getElementById('sNeg').textContent=neg;
+  document.getElementById('sNegPct').textContent=t?Math.round(neg/t*100)+'%':'—';
+  document.getElementById('sComp').textContent=comp;
+  const pc={};all.forEach(r=>{pc[r.platform]=(pc[r.platform]||0)+1});
+  document.querySelectorAll('[id^="pc-"]').forEach(el=>{
+    const p=el.id.replace('pc-','');
+    el.textContent=p==='all'?t:(pc[p]||0);
+  });
+}
+
+function renderCharts(){
+  const all=getAll();
+  const pc={};all.forEach(r=>{pc[r.platform]=(pc[r.platform]||0)+1});
+  const sp=Object.entries(pc).sort((a,b)=>b[1]-a[1]);const mx=sp[0]?.[1]||1;
+  document.getElementById('platBars').innerHTML=sp.length?sp.map(([p,n])=>`<div class="bar-row"><span class="bar-lbl">${p}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n/mx*100)}%;background:${PLAT_COLORS[p]||'#7a8099'}"></div></div><span class="bar-n">${n}</span></div>`).join(''):'<div style="font-size:12px;color:var(--text3)">暂无数据</div>';
+  const cc={};all.filter(r=>r.sentiment==='negative').forEach(r=>{cc[r.category]=(cc[r.category]||0)+1});
+  const sc=Object.entries(cc).sort((a,b)=>b[1]-a[1]);const mc=sc[0]?.[1]||1;
+  document.getElementById('catBars').innerHTML=sc.length?sc.map(([c,n])=>`<div class="bar-row"><span class="bar-lbl">${c}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n/mc*100)}%;background:var(--red)"></div></div><span class="bar-n">${n}</span></div>`).join(''):'<div style="font-size:12px;color:var(--text3)">暂无负面</div>';
+}
+
+function getAll(){return [...manualReviews,...reviews.filter(r=>!r.manual)]}
+function getFiltered(){
+  return getAll().filter(r=>{
+    if(activePlat!=='all'&&r.platform!==activePlat)return false;
+    if(activeF==='mention'&&!r.mentions_tarro)return false;
+    if(activeF!=='all'&&activeF!=='mention'&&r.sentiment!==activeF)return false;
+    if(searchQ&&!r.text.toLowerCase().includes(searchQ)&&!(r.author||'').toLowerCase().includes(searchQ))return false;
     return true;
   });
 }
 
-function platformPillClass(p) {
-  return { '小红书':'pill-xhs','微信视频号':'pill-wechat','抖音':'pill-tiktok','Facebook':'pill-fb','Instagram':'pill-fb','Google Reviews':'pill-google','Yelp':'pill-yelp' }[p]||'pill-tiktok';
-}
-
-function starsHtml(rating) {
-  if (!rating) return '';
-  return '<div class="stars">' + [1,2,3,4,5].map(i=>
-    `<span class="star" style="color:${i<=rating?'#f0a030':'#2a2e3e'}">★</span>`).join('') + '</div>';
-}
-
-function renderList() {
-  const filtered = getFiltered();
-  document.getElementById('countLabel').textContent = `共 ${filtered.length} 条`;
-  if (!filtered.length) {
-    document.getElementById('reviewList').innerHTML = '<div class="empty">没有符合条件的评论</div>';
-    return;
-  }
-  document.getElementById('reviewList').innerHTML = filtered.map(r => {
-    const sentClass = r.sentiment === 'positive' ? 's-positive' : r.sentiment === 'negative' ? 's-negative' : 's-neutral';
-    const badge = r.sentiment === 'positive'
-      ? '<span class="badge-pos">正面</span>'
-      : r.sentiment === 'negative'
-      ? '<span class="badge-neg">负面</span>'
-      : '<span class="badge-neu">中性</span>';
-    return `<div class="review-item">
-      <div class="review-sentiment ${sentClass}"></div>
-      <div class="review-body">
-        <div class="review-meta">
-          <span class="platform-pill ${platformPillClass(r.platform)}">${r.platform}</span>
-          ${r.mentions_tarro ? '<span class="tarro-badge">提及食客通</span>' : ''}
-          <span class="review-author">${r.author || '匿名'}</span>
-          <span class="review-date">${r.date}</span>
-          ${r.manual ? '<span class="manual-tag">手动</span>' : ''}
+function renderList(){
+  const f=getFiltered();
+  document.getElementById('countLbl').textContent='共 '+f.length+' 条';
+  if(!f.length){document.getElementById('rvList').innerHTML='<div class="empty">没有符合条件的评论</div>';return}
+  document.getElementById('rvList').innerHTML=f.map(r=>{
+    const bc=r.sentiment==='positive'?'var(--green)':r.sentiment==='negative'?'var(--red)':'var(--text3)';
+    const badge=r.sentiment==='positive'?'<span class="badge-p">正面</span>':r.sentiment==='negative'?'<span class="badge-n">负面</span>':'<span class="badge-neu">中性</span>';
+    const stars=r.rating?'<span class="stars">'+[1,2,3,4,5].map(i=>`<span style="color:${i<=r.rating?'#BA7517':'var(--text3)'}">★</span>`).join('')+'</span>':'';
+    const srcTag=r.manual?'<span class="manual-tag">手动</span>':'<span class="auto-tag">自动</span>';
+    return`<div class="rv">
+      <div class="rv-bar" style="background:${bc}"></div>
+      <div>
+        <div class="rv-meta">
+          <span class="pill ${pillClass(r.platform)}">${r.platform}</span>
+          ${r.source_name&&r.source_name!==r.platform?`<span style="font-size:11px;color:var(--text3)">${esc(r.source_name)}</span>`:''}
+          ${r.mentions_tarro?'<span class="tarro-pill">@ 食客通</span>':''}
+          ${r.is_competitor?'<span style="font-size:10px;padding:2px 7px;border-radius:99px;background:var(--amber-bg);color:var(--amber)">竞品</span>':''}
+          <span class="rv-author">${esc(r.author||'匿名')}</span>
+          <span class="rv-date">${r.date}</span>
+          ${srcTag}
         </div>
-        <div class="review-text">${escHtml(r.text)}</div>
-        <span class="review-category">${r.category}</span>
+        <div class="rv-txt">${esc(r.text)}</div>
+        <div class="rv-foot">
+          <span class="rv-cat">${r.category}</span>
+          ${r.url?`<a class="rv-url" href="${esc(r.url)}" target="_blank">↗ 原文</a>`:''}
+        </div>
       </div>
-      <div class="review-right">
-        ${badge}
-        ${starsHtml(r.rating)}
-      </div>
+      <div class="rv-right">${badge}${stars}</div>
     </div>`;
   }).join('');
 }
 
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function filterPlat(p,btn){
+  activePlat=p;
+  document.querySelectorAll('.pb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderList();
 }
-
-// ── events ────────────────────────────────────────────────────────────────────
-function bindEvents() {
-  document.querySelectorAll('.tab').forEach(t => {
-    t.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-      t.classList.add('active');
-      activeFilter = t.dataset.filter;
-      renderList();
-    });
-  });
-  document.getElementById('platformFilter').addEventListener('change', e => {
-    activePlatform = e.target.value;
-    renderList();
-  });
-  document.getElementById('searchInput').addEventListener('input', e => {
-    searchQuery = e.target.value.trim();
-    renderList();
-  });
-  document.getElementById('mDate').value = new Date().toISOString().slice(0,10);
-}
+document.getElementById('tabs').addEventListener('click',e=>{
+  const t=e.target.closest('.tab');if(!t)return;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');
+  activeF=t.dataset.f;renderList();
+});
+document.getElementById('searchQ').addEventListener('input',e=>{searchQ=e.target.value.trim().toLowerCase();renderList()});
 
 // ── modal ─────────────────────────────────────────────────────────────────────
-function openModal() { document.getElementById('modalBg').classList.add('open'); }
-function closeModal() { document.getElementById('modalBg').classList.remove('open'); }
-document.getElementById('modalBg').addEventListener('click', e => {
-  if (e.target === document.getElementById('modalBg')) closeModal();
-});
+function openModal(){document.getElementById('mDate').value=new Date().toISOString().slice(0,10);document.getElementById('mo').classList.add('open')}
+function closeModal(){document.getElementById('mo').classList.remove('open');document.getElementById('aiSt').textContent='';document.getElementById('mText').value='';document.getElementById('mUrl').value='';document.getElementById('mRating').value=''}
+document.getElementById('mo').addEventListener('click',e=>{if(e.target===document.getElementById('mo'))closeModal()});
 
-async function saveReview() {
-  const text = document.getElementById('mText').value.trim();
-  if (!text) { alert('请输入评论内容'); return; }
-  const btn = document.getElementById('saveBtn');
-  const status = document.getElementById('aiStatus');
-  btn.disabled = true;
-  status.textContent = 'AI 分析中…';
-
-  const platform = document.getElementById('mPlatform').value;
-  const source = document.getElementById('mSource').value || platform;
-  const author = document.getElementById('mAuthor').value || '匿名';
-  const date = document.getElementById('mDate').value;
-
-  try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{
-          role: 'user',
-          content: `分析这条来自${platform}的餐厅评论，判断是否提及食客通/Tarro，并分类。
-评论：${text}
-
-只返回JSON：{"mentions_tarro":bool,"sentiment":"positive|negative|neutral","category":"好评|价格投诉|服务问题|恶意差评|功能建议|其他","summary":"10字内核心"}`
-        }]
-      })
-    });
-    const data = await resp.json();
-    const raw = (data.content||[]).map(c=>c.text||'').join('').replace(/```json|```/g,'').trim();
-    const ai = JSON.parse(raw);
-    status.textContent = `✓ 分析完成：${ai.sentiment === 'positive' ? '正面' : ai.sentiment === 'negative' ? '负面' : '中性'} · ${ai.category}`;
-
-    const review = {
-      id: `manual:${platform}:${Date.now()}`,
-      platform, source_name: source, author, date,
-      rating: null, text,
-      url: '', manual: true,
-      fetched_at: new Date().toISOString(),
-      mentions_tarro: ai.mentions_tarro,
-      sentiment: ai.sentiment,
-      category: ai.category
-    };
-    allReviews.unshift(review);
-    renderCharts();
-    renderList();
-    updateStatCards();
-    setTimeout(() => { closeModal(); btn.disabled = false; status.textContent = ''; document.getElementById('mText').value = ''; }, 800);
-  } catch(e) {
-    status.textContent = '分析失败，按关键词简单分类…';
-    const review = {
-      id: `manual:${platform}:${Date.now()}`,
-      platform, source_name: source, author, date,
-      rating: null, text, url: '', manual: true,
-      fetched_at: new Date().toISOString(),
-      mentions_tarro: /食客通|tarro|wonders/i.test(text),
-      sentiment: /好|棒|推荐|赞|省事/.test(text) ? 'positive' : /贵|差|垃圾|烂|口音/.test(text) ? 'negative' : 'neutral',
-      category: /价格|贵/.test(text) ? '价格投诉' : /口音|接线/.test(text) ? '服务问题' : /垃圾|骗/.test(text) ? '恶意差评' : '其他'
-    };
-    allReviews.unshift(review);
-    renderCharts(); renderList(); updateStatCards();
-    setTimeout(() => { closeModal(); btn.disabled = false; status.textContent = ''; document.getElementById('mText').value = ''; }, 1000);
+async function saveReview(){
+  const text=document.getElementById('mText').value.trim();
+  if(!text){alert('请输入评论内容');return}
+  const btn=document.getElementById('saveBtn'),st=document.getElementById('aiSt');
+  btn.disabled=true;st.textContent='AI 分析中…';
+  const plat=document.getElementById('mPlat').value,src=document.getElementById('mSrc').value||plat,author=document.getElementById('mAuthor').value||'匿名',date=document.getElementById('mDate').value,url=document.getElementById('mUrl').value,rating=document.getElementById('mRating').value?parseInt(document.getElementById('mRating').value):null;
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:`分析这条来自${plat}的评论（食客通=Tarro，为美国华人餐厅提供电话代接服务）。评论：${text}${rating?' 星级：'+rating+'星':''}\n只返回JSON：{"mentions_tarro":bool,"is_competitor":bool,"sentiment":"positive|negative|neutral","category":"好评|价格投诉|服务问题|恶意差评|功能建议|竞品提及|其他","key_issue":"10字内核心"}`}]})});
+    const data=await resp.json();
+    const ai=JSON.parse((data.content||[]).map(c=>c.text||'').join('').replace(/```json|```/g,'').trim());
+    st.style.color='var(--green)';
+    st.textContent='✓ '+(ai.sentiment==='positive'?'正面':ai.sentiment==='negative'?'负面':'中性')+' · '+ai.category+(ai.key_issue?' · '+ai.key_issue:'');
+    const rv={id:'m'+Date.now(),platform:plat,source_name:src,author,date,rating,text,url,mentions_tarro:ai.mentions_tarro,is_competitor:ai.is_competitor||false,sentiment:ai.sentiment,category:ai.category,manual:true,fetched_at:new Date().toISOString()};
+    manualReviews.unshift(rv);
+    localStorage.setItem('tarro_manual',JSON.stringify(manualReviews));
+    updateAll();
+    setTimeout(()=>{closeModal();btn.disabled=false},900);
+  }catch(e){
+    st.style.color='var(--amber)';st.textContent='AI 失败，简单分类…';
+    const rv={id:'m'+Date.now(),platform:plat,source_name:src,author,date,rating,text,url,mentions_tarro:tarro(text),is_competitor:competitor(text),sentiment:rating?sentiment('',rating):sentiment(text,null),category:category(text),manual:true,fetched_at:new Date().toISOString()};
+    manualReviews.unshift(rv);
+    localStorage.setItem('tarro_manual',JSON.stringify(manualReviews));
+    updateAll();
+    setTimeout(()=>{closeModal();btn.disabled=false},600);
   }
 }
 
-function updateStatCards() {
-  const t = allReviews.length;
-  const pos = allReviews.filter(r=>r.sentiment==='positive').length;
-  const neg = allReviews.filter(r=>r.sentiment==='negative').length;
-  const men = allReviews.filter(r=>r.mentions_tarro).length;
-  document.getElementById('sTotal').textContent = t;
-  document.getElementById('sTotalSub').textContent = `其中提及食客通 ${men} 条`;
-  document.getElementById('sPos').textContent = pos;
-  document.getElementById('sPosPct').textContent = t ? `占 ${Math.round(pos/t*100)}%` : '—';
-  document.getElementById('sNeg').textContent = neg;
-  document.getElementById('sNegPct').textContent = t ? `占 ${Math.round(neg/t*100)}%` : '—';
-  document.getElementById('sMention').textContent = men;
-}
-
-init();
+loadData();
 </script>
 </body>
 </html>
