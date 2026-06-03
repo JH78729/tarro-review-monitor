@@ -13,7 +13,7 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895119+00:00"
+    "fetched_at": "2026-06-03T19:48:05.745957+00:00"
   },
   {
     "id": "8a74f29f218f210a",
@@ -29,39 +29,7 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895176+00:00"
-  },
-  {
-    "id": "25afcbf6dd5d889c",
-    "platform": "YouTube",
-    "source_name": "YouTube",
-    "author": " 食客通",
-    "date": "2026-06-03",
-    "rating": null,
-    "text": "使用食客通接电话，接单量暴涨- Wechat",
-    "url": "https://www.youtube.com/watch?v=INMnNszhd3Y",
-    "mentions_tarro": true,
-    "is_competitor": false,
-    "sentiment": "neutral",
-    "category": "其他",
-    "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895211+00:00"
-  },
-  {
-    "id": "6a49b44637c3868c",
-    "platform": "YouTube",
-    "source_name": "YouTube",
-    "author": " 食客通",
-    "date": "2026-06-03",
-    "rating": null,
-    "text": "食客通－提供英文和西班牙语接电话服务",
-    "url": "https://www.youtube.com/watch?v=JYCdFRC52lU",
-    "mentions_tarro": true,
-    "is_competitor": false,
-    "sentiment": "neutral",
-    "category": "其他",
-    "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895242+00:00"
+    "fetched_at": "2026-06-03T19:48:05.746008+00:00"
   },
   {
     "id": "b2ac91e94a32b9cc",
@@ -77,23 +45,23 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895268+00:00"
+    "fetched_at": "2026-06-03T19:48:05.746039+00:00"
   },
   {
-    "id": "93a93597a79f11bf",
+    "id": "6a49b44637c3868c",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
     "date": "2026-06-03",
     "rating": null,
-    "text": "食客通－专业的接单員培训，只为保证接单的质量。",
-    "url": "https://www.youtube.com/watch?v=GWj8OPGvh94",
+    "text": "食客通－提供英文和西班牙语接电话服务",
+    "url": "https://www.youtube.com/watch?v=JYCdFRC52lU",
     "mentions_tarro": true,
     "is_competitor": false,
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895303+00:00"
+    "fetched_at": "2026-06-03T19:48:05.746069+00:00"
   },
   {
     "id": "d139bd9bae4352a6",
@@ -109,23 +77,7 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895328+00:00"
-  },
-  {
-    "id": "aabb59139d50c6d8",
-    "platform": "YouTube",
-    "source_name": "YouTube",
-    "author": " 食客通",
-    "date": "2026-06-03",
-    "rating": null,
-    "text": "扩大配送范围，支持现金支付，食客通电话订单送餐服务全面升级！",
-    "url": "https://www.youtube.com/watch?v=l_Dj4AB6riY",
-    "mentions_tarro": true,
-    "is_competitor": false,
-    "sentiment": "neutral",
-    "category": "其他",
-    "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895369+00:00"
+    "fetched_at": "2026-06-03T19:48:05.746093+00:00"
   },
   {
     "id": "71f0279d110faaea",
@@ -141,71 +93,39 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895403+00:00"
+    "fetched_at": "2026-06-03T19:48:05.746127+00:00"
   },
   {
-    "id": "420b88e354a91ebf",
+    "id": "25afcbf6dd5d889c",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
     "date": "2026-06-03",
     "rating": null,
-    "text": "食客通－什么是餐饮人退休后的理想生活 ？",
-    "url": "https://www.youtube.com/watch?v=16AyS3pdG04",
+    "text": "使用食客通接电话，接单量暴涨- Wechat",
+    "url": "https://www.youtube.com/watch?v=INMnNszhd3Y",
     "mentions_tarro": true,
     "is_competitor": false,
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895430+00:00"
+    "fetched_at": "2026-06-03T19:48:05.746156+00:00"
   },
   {
-    "id": "fd89e2665743e51d",
+    "id": "93a93597a79f11bf",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
     "date": "2026-06-03",
     "rating": null,
-    "text": "英文不好，有食客通接电话也不怕",
-    "url": "https://www.youtube.com/watch?v=u8KD2QTkcRk",
-    "mentions_tarro": true,
-    "is_competitor": false,
-    "sentiment": "positive",
-    "category": "其他",
-    "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895472+00:00"
-  },
-  {
-    "id": "1d15d6a6a09ee618",
-    "platform": "YouTube",
-    "source_name": "YouTube",
-    "author": " 食客通",
-    "date": "2026-06-03",
-    "rating": null,
-    "text": "高峰期漏单、错单？食客通 真人+AI辅助电话代接，帮3000+餐馆老板一次解决！",
-    "url": "https://www.youtube.com/watch?v=kWbAxxqvnkk",
+    "text": "食客通－专业的接单員培训，只为保证接单的质量。",
+    "url": "https://www.youtube.com/watch?v=GWj8OPGvh94",
     "mentions_tarro": true,
     "is_competitor": false,
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895514+00:00"
-  },
-  {
-    "id": "7afe8d79e08acf7b",
-    "platform": "YouTube",
-    "source_name": "YouTube",
-    "author": " 食客通",
-    "date": "2026-06-03",
-    "rating": null,
-    "text": "食客通－无限条电话线确保没有漏接来电",
-    "url": "https://www.youtube.com/watch?v=7vh_XyuMQ_A",
-    "mentions_tarro": true,
-    "is_competitor": false,
-    "sentiment": "neutral",
-    "category": "其他",
-    "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895539+00:00"
+    "fetched_at": "2026-06-03T19:48:05.746189+00:00"
   },
   {
     "id": "17367d0858a9af92",
@@ -221,23 +141,87 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895607+00:00"
+    "fetched_at": "2026-06-03T19:48:05.746223+00:00"
   },
   {
-    "id": "ac946cbf42e8f871",
+    "id": "aabb59139d50c6d8",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
     "date": "2026-06-03",
     "rating": null,
-    "text": "食客通－使用服务很灵活，想用就用",
-    "url": "https://www.youtube.com/watch?v=u1VYXfybS18",
+    "text": "扩大配送范围，支持现金支付，食客通电话订单送餐服务全面升级！",
+    "url": "https://www.youtube.com/watch?v=l_Dj4AB6riY",
     "mentions_tarro": true,
     "is_competitor": false,
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-03T19:24:57.895629+00:00"
+    "fetched_at": "2026-06-03T19:48:05.746254+00:00"
+  },
+  {
+    "id": "fd89e2665743e51d",
+    "platform": "YouTube",
+    "source_name": "YouTube",
+    "author": " 食客通",
+    "date": "2026-06-03",
+    "rating": null,
+    "text": "英文不好，有食客通接电话也不怕",
+    "url": "https://www.youtube.com/watch?v=u8KD2QTkcRk",
+    "mentions_tarro": true,
+    "is_competitor": false,
+    "sentiment": "positive",
+    "category": "其他",
+    "manual": false,
+    "fetched_at": "2026-06-03T19:48:05.746301+00:00"
+  },
+  {
+    "id": "420b88e354a91ebf",
+    "platform": "YouTube",
+    "source_name": "YouTube",
+    "author": " 食客通",
+    "date": "2026-06-03",
+    "rating": null,
+    "text": "食客通－什么是餐饮人退休后的理想生活 ？",
+    "url": "https://www.youtube.com/watch?v=16AyS3pdG04",
+    "mentions_tarro": true,
+    "is_competitor": false,
+    "sentiment": "neutral",
+    "category": "其他",
+    "manual": false,
+    "fetched_at": "2026-06-03T19:48:05.746373+00:00"
+  },
+  {
+    "id": "1d15d6a6a09ee618",
+    "platform": "YouTube",
+    "source_name": "YouTube",
+    "author": " 食客通",
+    "date": "2026-06-03",
+    "rating": null,
+    "text": "高峰期漏单、错单？食客通 真人+AI辅助电话代接，帮3000+餐馆老板一次解决！",
+    "url": "https://www.youtube.com/watch?v=kWbAxxqvnkk",
+    "mentions_tarro": true,
+    "is_competitor": false,
+    "sentiment": "neutral",
+    "category": "其他",
+    "manual": false,
+    "fetched_at": "2026-06-03T19:48:05.746414+00:00"
+  },
+  {
+    "id": "7afe8d79e08acf7b",
+    "platform": "YouTube",
+    "source_name": "YouTube",
+    "author": " 食客通",
+    "date": "2026-06-03",
+    "rating": null,
+    "text": "食客通－无限条电话线确保没有漏接来电",
+    "url": "https://www.youtube.com/watch?v=7vh_XyuMQ_A",
+    "mentions_tarro": true,
+    "is_competitor": false,
+    "sentiment": "neutral",
+    "category": "其他",
+    "manual": false,
+    "fetched_at": "2026-06-03T19:48:05.746437+00:00"
   },
   {
     "id": "b736d67f6f06ed7c",
@@ -253,6 +237,6 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-03T19:25:00.130130+00:00"
+    "fetched_at": "2026-06-03T19:48:07.914646+00:00"
   }
 ]
