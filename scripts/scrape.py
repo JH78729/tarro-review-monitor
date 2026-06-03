@@ -15,7 +15,7 @@ from urllib.parse import quote_plus
 import requests
 from bs4 import BeautifulSoup
 
-DATA_DIR = Path(__file__).parent.parent.parent.parent / "mkt/tarro-review-monitor/data"
+DATA_DIR = Path(__file__).parent.parent / "data"
 DATA_DIR.mkdir(exist_ok=True)
 REVIEWS_FILE = DATA_DIR / "reviews.json"
 META_FILE    = DATA_DIR / "meta.json"
