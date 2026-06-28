@@ -4,7 +4,7 @@
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "食客通－ 为什么餐馆都选择使用我们的服务？",
     "url": "https://www.youtube.com/watch?v=F8JA2wyiRCA",
@@ -13,14 +13,14 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544487+00:00"
+    "fetched_at": "2026-06-28T15:14:23.852978+00:00"
   },
   {
     "id": "8a74f29f218f210a",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "食客通是什么？美国中餐馆老板使用评测（真实反馈）",
     "url": "https://www.youtube.com/watch?v=sNsCYEDDCS8",
@@ -29,46 +29,14 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544540+00:00"
-  },
-  {
-    "id": "b2ac91e94a32b9cc",
-    "platform": "YouTube",
-    "source_name": "YouTube",
-    "author": " 食客通",
-    "date": "2026-06-27",
-    "rating": null,
-    "text": "食客通－每周做足7天，全年不中断",
-    "url": "https://www.youtube.com/watch?v=YL9qx-bO_Hg",
-    "mentions_tarro": true,
-    "is_competitor": false,
-    "sentiment": "neutral",
-    "category": "其他",
-    "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544570+00:00"
-  },
-  {
-    "id": "d139bd9bae4352a6",
-    "platform": "YouTube",
-    "source_name": "YouTube",
-    "author": " 食客通",
-    "date": "2026-06-27",
-    "rating": null,
-    "text": "食客通－来美20年的餐饮人故事",
-    "url": "https://www.youtube.com/watch?v=Ibl4EMIEIAA",
-    "mentions_tarro": true,
-    "is_competitor": false,
-    "sentiment": "neutral",
-    "category": "其他",
-    "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544602+00:00"
+    "fetched_at": "2026-06-28T15:14:23.853062+00:00"
   },
   {
     "id": "25afcbf6dd5d889c",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "使用食客通接电话，接单量暴涨- Wechat",
     "url": "https://www.youtube.com/watch?v=INMnNszhd3Y",
@@ -77,30 +45,46 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544633+00:00"
+    "fetched_at": "2026-06-28T15:14:23.853110+00:00"
   },
   {
-    "id": "17367d0858a9af92",
+    "id": "d139bd9bae4352a6",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
-    "text": "他们都是怎么解决餐馆漏单问题的？北美餐馆老板真实分享｜食客通",
-    "url": "https://www.youtube.com/watch?v=DFDfjmb_5j0",
+    "text": "食客通－来美20年的餐饮人故事",
+    "url": "https://www.youtube.com/watch?v=Ibl4EMIEIAA",
     "mentions_tarro": true,
     "is_competitor": false,
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544667+00:00"
+    "fetched_at": "2026-06-28T15:14:23.853145+00:00"
+  },
+  {
+    "id": "b2ac91e94a32b9cc",
+    "platform": "YouTube",
+    "source_name": "YouTube",
+    "author": " 食客通",
+    "date": "2026-06-28",
+    "rating": null,
+    "text": "食客通－每周做足7天，全年不中断",
+    "url": "https://www.youtube.com/watch?v=YL9qx-bO_Hg",
+    "mentions_tarro": true,
+    "is_competitor": false,
+    "sentiment": "neutral",
+    "category": "其他",
+    "manual": false,
+    "fetched_at": "2026-06-28T15:14:23.853172+00:00"
   },
   {
     "id": "6a49b44637c3868c",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "食客通－提供英文和西班牙语接电话服务",
     "url": "https://www.youtube.com/watch?v=JYCdFRC52lU",
@@ -109,30 +93,30 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544692+00:00"
+    "fetched_at": "2026-06-28T15:14:23.853198+00:00"
   },
   {
-    "id": "1d15d6a6a09ee618",
+    "id": "17367d0858a9af92",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
-    "text": "高峰期漏单、错单？食客通 真人+AI辅助电话代接，帮3000+餐馆老板一次解决！",
-    "url": "https://www.youtube.com/watch?v=kWbAxxqvnkk",
+    "text": "他们都是怎么解决餐馆漏单问题的？北美餐馆老板真实分享｜食客通",
+    "url": "https://www.youtube.com/watch?v=DFDfjmb_5j0",
     "mentions_tarro": true,
     "is_competitor": false,
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544735+00:00"
+    "fetched_at": "2026-06-28T15:14:23.853238+00:00"
   },
   {
     "id": "fd89e2665743e51d",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "英文不好，有食客通接电话也不怕",
     "url": "https://www.youtube.com/watch?v=u8KD2QTkcRk",
@@ -141,14 +125,30 @@
     "sentiment": "positive",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544760+00:00"
+    "fetched_at": "2026-06-28T15:14:23.853268+00:00"
+  },
+  {
+    "id": "1d15d6a6a09ee618",
+    "platform": "YouTube",
+    "source_name": "YouTube",
+    "author": " 食客通",
+    "date": "2026-06-28",
+    "rating": null,
+    "text": "高峰期漏单、错单？食客通 真人+AI辅助电话代接，帮3000+餐馆老板一次解决！",
+    "url": "https://www.youtube.com/watch?v=kWbAxxqvnkk",
+    "mentions_tarro": true,
+    "is_competitor": false,
+    "sentiment": "neutral",
+    "category": "其他",
+    "manual": false,
+    "fetched_at": "2026-06-28T15:14:23.853308+00:00"
   },
   {
     "id": "420b88e354a91ebf",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "食客通－什么是餐饮人退休后的理想生活 ？",
     "url": "https://www.youtube.com/watch?v=16AyS3pdG04",
@@ -157,14 +157,14 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544828+00:00"
+    "fetched_at": "2026-06-28T15:14:23.853357+00:00"
   },
   {
     "id": "93a93597a79f11bf",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "食客通－专业的接单員培训，只为保证接单的质量。",
     "url": "https://www.youtube.com/watch?v=GWj8OPGvh94",
@@ -173,14 +173,14 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544859+00:00"
+    "fetched_at": "2026-06-28T15:14:23.853383+00:00"
   },
   {
     "id": "71f0279d110faaea",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "食客通 - 接外卖电话 1-888-866-7688",
     "url": "https://www.youtube.com/watch?v=N7CyEfbyGCA",
@@ -189,14 +189,14 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544888+00:00"
+    "fetched_at": "2026-06-28T15:14:23.853411+00:00"
   },
   {
     "id": "7afe8d79e08acf7b",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "食客通－无限条电话线确保没有漏接来电",
     "url": "https://www.youtube.com/watch?v=7vh_XyuMQ_A",
@@ -205,14 +205,14 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544920+00:00"
+    "fetched_at": "2026-06-28T15:14:23.853442+00:00"
   },
   {
     "id": "aabb59139d50c6d8",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "扩大配送范围，支持现金支付，食客通电话订单送餐服务全面升级！",
     "url": "https://www.youtube.com/watch?v=l_Dj4AB6riY",
@@ -221,14 +221,14 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:32.544953+00:00"
+    "fetched_at": "2026-06-28T15:14:23.853473+00:00"
   },
   {
     "id": "cc3775edd137628e",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": "Tarro",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "Tarro Manifesto",
     "url": "https://www.youtube.com/watch?v=gK4HiYPpgUA",
@@ -237,14 +237,14 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:34.812896+00:00"
+    "fetched_at": "2026-06-28T15:14:26.106909+00:00"
   },
   {
     "id": "b736d67f6f06ed7c",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": "GoLocal LIVE",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "Christopher Tarro, Siena Restaurants",
     "url": "https://www.youtube.com/watch?v=2as2xAsScNk",
@@ -253,14 +253,14 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:34.813014+00:00"
+    "fetched_at": "2026-06-28T15:14:26.107005+00:00"
   },
   {
     "id": "ae82c21a0b3920eb",
     "platform": "YouTube",
     "source_name": "YouTube",
     "author": " 食客通",
-    "date": "2026-06-27",
+    "date": "2026-06-28",
     "rating": null,
     "text": "新开餐馆和家庭店，食客通真的能帮到你们",
     "url": "https://www.youtube.com/watch?v=MsuHrqJqEN4",
@@ -269,6 +269,6 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-06-27T15:12:41.050423+00:00"
+    "fetched_at": "2026-06-28T15:14:32.499194+00:00"
   }
 ]
