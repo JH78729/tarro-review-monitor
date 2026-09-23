@@ -1,13 +1,13 @@
 {
-  "last_run": "2026-09-22T17:52:10.025088+00:00",
-  "total": 13,
+  "last_run": "2026-09-23T18:09:28.630584+00:00",
+  "total": 12,
   "positive": 1,
   "negative": 0,
-  "neutral": 12,
-  "mentions_tarro": 13,
-  "positive_pct": 7.7,
+  "neutral": 11,
+  "mentions_tarro": 12,
+  "positive_pct": 8.3,
   "negative_pct": 0.0,
   "by_platform": {
-    "YouTube": 13
+    "YouTube": 12
   }
 }
