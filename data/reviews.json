@@ -13,7 +13,7 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-11-24T01:26:46.045307+00:00"
+    "fetched_at": "2026-11-24T23:21:07.117305+00:00"
   },
   {
     "id": "17367d0858a9af92",
@@ -29,7 +29,7 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-11-24T01:26:46.045359+00:00"
+    "fetched_at": "2026-11-24T23:21:07.117355+00:00"
   },
   {
     "id": "ce729bee1087c265",
@@ -45,23 +45,7 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-11-24T01:26:46.045385+00:00"
-  },
-  {
-    "id": "420b88e354a91ebf",
-    "platform": "YouTube",
-    "source_name": "YouTube",
-    "author": " 食客通",
-    "date": "2026-11-24",
-    "rating": null,
-    "text": "食客通－什么是餐饮人退休后的理想生活 ？",
-    "url": "https://www.youtube.com/watch?v=16AyS3pdG04",
-    "mentions_tarro": true,
-    "is_competitor": false,
-    "sentiment": "neutral",
-    "category": "其他",
-    "manual": false,
-    "fetched_at": "2026-11-24T01:26:46.045421+00:00"
+    "fetched_at": "2026-11-24T23:21:07.117380+00:00"
   },
   {
     "id": "aabb59139d50c6d8",
@@ -77,7 +61,23 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-11-24T01:26:46.045449+00:00"
+    "fetched_at": "2026-11-24T23:21:07.117411+00:00"
+  },
+  {
+    "id": "420b88e354a91ebf",
+    "platform": "YouTube",
+    "source_name": "YouTube",
+    "author": " 食客通",
+    "date": "2026-11-24",
+    "rating": null,
+    "text": "食客通－什么是餐饮人退休后的理想生活 ？",
+    "url": "https://www.youtube.com/watch?v=16AyS3pdG04",
+    "mentions_tarro": true,
+    "is_competitor": false,
+    "sentiment": "neutral",
+    "category": "其他",
+    "manual": false,
+    "fetched_at": "2026-11-24T23:21:07.117438+00:00"
   },
   {
     "id": "1d15d6a6a09ee618",
@@ -93,7 +93,7 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-11-24T01:26:46.045481+00:00"
+    "fetched_at": "2026-11-24T23:21:07.117476+00:00"
   },
   {
     "id": "d139bd9bae4352a6",
@@ -109,23 +109,7 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-11-24T01:26:46.045511+00:00"
-  },
-  {
-    "id": "22cd6506ce9b6aaf",
-    "platform": "YouTube",
-    "source_name": "YouTube",
-    "author": " 食客通",
-    "date": "2026-11-24",
-    "rating": null,
-    "text": "食客通－ 为什么餐馆都选择使用我们的服务？",
-    "url": "https://www.youtube.com/watch?v=F8JA2wyiRCA",
-    "mentions_tarro": true,
-    "is_competitor": false,
-    "sentiment": "neutral",
-    "category": "其他",
-    "manual": false,
-    "fetched_at": "2026-11-24T01:26:46.045544+00:00"
+    "fetched_at": "2026-11-24T23:21:07.117496+00:00"
   },
   {
     "id": "fd89e2665743e51d",
@@ -141,7 +125,7 @@
     "sentiment": "positive",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-11-24T01:26:46.045569+00:00"
+    "fetched_at": "2026-11-24T23:21:07.117522+00:00"
   },
   {
     "id": "b2ac91e94a32b9cc",
@@ -157,7 +141,39 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-11-24T01:26:46.045586+00:00"
+    "fetched_at": "2026-11-24T23:21:07.117541+00:00"
+  },
+  {
+    "id": "22cd6506ce9b6aaf",
+    "platform": "YouTube",
+    "source_name": "YouTube",
+    "author": " 食客通",
+    "date": "2026-11-24",
+    "rating": null,
+    "text": "食客通－ 为什么餐馆都选择使用我们的服务？",
+    "url": "https://www.youtube.com/watch?v=F8JA2wyiRCA",
+    "mentions_tarro": true,
+    "is_competitor": false,
+    "sentiment": "neutral",
+    "category": "其他",
+    "manual": false,
+    "fetched_at": "2026-11-24T23:21:07.117568+00:00"
+  },
+  {
+    "id": "71f0279d110faaea",
+    "platform": "YouTube",
+    "source_name": "YouTube",
+    "author": " 食客通",
+    "date": "2026-11-24",
+    "rating": null,
+    "text": "食客通 - 接外卖电话 1-888-866-7688",
+    "url": "https://www.youtube.com/watch?v=N7CyEfbyGCA",
+    "mentions_tarro": true,
+    "is_competitor": false,
+    "sentiment": "neutral",
+    "category": "其他",
+    "manual": false,
+    "fetched_at": "2026-11-24T23:21:07.117591+00:00"
   },
   {
     "id": "cc3775edd137628e",
@@ -173,22 +189,6 @@
     "sentiment": "neutral",
     "category": "其他",
     "manual": false,
-    "fetched_at": "2026-11-24T01:26:48.301703+00:00"
-  },
-  {
-    "id": "b736d67f6f06ed7c",
-    "platform": "YouTube",
-    "source_name": "YouTube",
-    "author": "GoLocal LIVE",
-    "date": "2026-11-24",
-    "rating": null,
-    "text": "Christopher Tarro, Siena Restaurants",
-    "url": "https://www.youtube.com/watch?v=2as2xAsScNk",
-    "mentions_tarro": true,
-    "is_competitor": false,
-    "sentiment": "neutral",
-    "category": "其他",
-    "manual": false,
-    "fetched_at": "2026-11-24T01:26:48.301785+00:00"
+    "fetched_at": "2026-11-24T23:21:09.372233+00:00"
   }
 ]
